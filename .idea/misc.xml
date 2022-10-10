@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/browse_plans_exercises.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/browse_plans_exercises_recycler_view.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/dialog_add_exercise_to_plan.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_add_new_plan.xml" value="0.23772609819121446" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_exercise_view.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_plans.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoLogowanie/app/src/main/res/layout/main_plan_recyclerview.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/kryst/Desktop/Praca inzynierska/fizjo/MojFizjoVer1.3/MojFizjo/app/src/main/res/layout/fragment_category_view.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/drawable-anydpi/ic_baseline_notifications.xml" value="0.1725" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/drawable/blank_exercise_photo.xml" value="0.2495" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/browse_plans_exercises.xml" value="0.27421875" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/browse_plans_exercises_recycler_view.xml" value="0.365625" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_add_new_plan.xml" value="0.365625" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_blank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_category_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_exercise.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_exercise_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_plans.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/fragment_workout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/layout/main_plan_recyclerview.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Desktop/fizjo/MojFizjoLogowanie/app/src/main/res/menu/toolbar_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/drawable-anydpi/ic_baseline_notifications_24.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/Plans_home.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/Workout_home.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/fragment_excercise.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/fragment_plans.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/layout/fragment_workout.xml" value="0.1" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/menu/bottom_menu.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/kryst/Downloads/MojFizjo/MojFizjo/app/src/main/res/menu/toolbar_menu.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable-anydpi/ic_baseline_checkBoxOutlineBlank.xml" value="0.25" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable-anydpi/ic_baseline_notifications.xml" value="0.196" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable-anydpi/ic_baseline_notifications_24.xml" value="0.196" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable-anydpi/ic_error_outline.xml" value="0.196" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/blank_excercise_photo.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/blank_exercise_photo.xml" value="0.2505" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic__.xml" value="0.1965" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_excersises_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_healing_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_plans_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_baseline_training_24.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/ic_weeb_free_zone_loading_wheel_11562900663owp1nbg8bw.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_kolano.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_lokiec.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_nadgarstek.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_plecy.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_stopa.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/kategoria_szyja.xml" value="0.2055" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/loading_circle.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/selektor_bialy.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/selektor_cwiczen_bialy.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/selektor_cwiczen_niebieski.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/selektor_kategorii.xml" value="0.1955" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/drawable/selektor_niebieski.xml" value="0.236" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/activity_main.xml" value="0.40857787810383744" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/browse_plans_exercises.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/browse_plans_exercises_recycler_view.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/dialog_add_exercise_to_plan.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/excercise_view_borders.xml" value="0.24592391304347827" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_account.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_add_new_plan.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_category_view.xml" value="0.25" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_excercise.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_excercise_view.xml" value="0.25" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_exercise.xml" value="0.24592391304347827" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_exercise_view.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_plans.xml" value="0.22" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_registration.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_workout.xml" value="0.22" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_workout_plan_recycler_view.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/fragment_workout_plan_view.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/main_plan_recyclerview.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/layout/workout_plan_view_recyclerview.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/menu/bottom_menu.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/rafag/AndroidStudioProjects/MojFizjo/app/src/main/res/menu/toolbar_menu.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

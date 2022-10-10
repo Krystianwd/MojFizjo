@@ -1,0 +1,97 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Mój Fizjo</string>
+    <string name="app_icon">Ikona</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zapisz">Zapisz</string>
+    <string name="anuluj">Anuluj</string>
+    <string name="potwierdz">Potwierdź</string>
+    <string name="jezyk">pl</string>
+    <string name="caption">podpis</string>
+
+    <string name="dom">Dom</string>
+    <string name="plany">Plany</string>
+    <string name="trening">Trening</string>
+    <string name="cwiczenia">Ćwiczenia</string>
+
+    <string name="login">Login</string>
+    <string name="logowanie">Logowanie</string>
+    <string name="email">E-Mail</string>
+    <string name="haslo">Hasło</string>
+    <string name="brak_hasla">Nie pamiętam hasła</string>
+    <string name="brak_konta">Nie masz jescze konta?</string>
+    <string name="zaloguj">Zaloguj się</string>
+    <string name="zarejestruj">Zarejestruj się</string>
+    <string name="bezlogowania">Kontynuuj bez logowania</string>
+
+    <string name="rejestracja">Rejestracja</string>
+    <string name="powtorzhaslo">Powtórz Hasło</string>
+    <string name="powrot_do_logowania">Wróć do ekranu logowania</string>
+    <string name="wiadomosc_weryfikacyjna" tools:ignore="Typos">Wysłano wiadomość z linkiem weryfikacyjnym na podany adres E-Mail. Kliknij link w wiadomości, by zakończyć weryfikację. Jeżeli nie możesz znaleźć wiadomości, poszukaj w folderach Spam lub Kosz.</string>
+    <string name="wiadomosc_reset_hasla" tools:ignore="Typos">Wysłano wiadomość z linkiem do resetu hasła na podany adres E-Mail. Jeżeli nie możesz znaleźć wiadomości, poszukaj w folderach Spam lub Kosz.</string>
+
+    <string name="walidacja_brak_maila">Proszę podać e-mail</string>
+    <string name="walidacja_brak_hasla">Proszę podać hasło</string>
+    <string name="walidacja_brak_hasla2">Proszę powtórzyć hasło</string>
+    <string name="walidacja_zly_mail" tools:ignore="Typos">Niepoprawny adres e-mail</string>
+    <string name="walidacja_za_krotkie_haslo">Hasło musi mieć co najmniej 6 znaków</string>
+    <string name="walidacja_rozne_hasla">Proszę podać to samo hasło w obu polach</string>
+
+    <string name="blad_wysylania_maila">Błąd wysyłania e-maila: </string>
+    <string name="blad_rejestracji">Błąd rejestracji: </string>
+    <string name="blad_logowania">Błąd logowania: </string>
+    <string name="zle_haslo">Błędny e-mail lub hasło.</string>
+    <string name="niezweryfikowany_mail" tools:ignore="Typos">Adres e-mail nie jest zweryfikowany. Kliknij link w wiadomości wysłanej na ten adres.</string>
+    <string name="nieznany_mail" tools:ignore="Typos">Adres e-mail nie znaleziony w bazie danych.</string>
+
+    <string name="twoje_konto">Twoje Konto</string>
+    <string name="wyloguj">Wyloguj się</string>
+    <string name="zmien_haslo">Zmień hasło</string>
+    <string name="usun_konto">Usuń konto</string>
+    <string name="usun_konto2">Potwierdź i usuń konto na zawsze (nie można tego cofnąć!!!)</string>
+    <string name="nowe_haslo" tools:ignore="Typos">Nowe hasło</string>
+    <string name="odswierz_logowanie">To niebezpieczne działanie wymaga ponowienia logowania. Proszę podać aktualny e-mail i hasło.</string>
+    <string name="bledny_email">To nie jest aktualny e-mail obecnie zalogowanego użytkownika!</string>
+    <string name="bledne_haslo">To nie jest aktualne hasło obecnie zalogowanego użytkownika!</string>
+    <string name="haslo_zmienione">Hasło zostało zmienione.</string>
+
+
+    <string name="osiagniecia">Twoje osiągnięcia</string>
+
+    <string name="powiadomienia">Powiadomienia</string>
+
+    <string name="kategoria">Kategoria</string>
+    <string name="kategoria_id">ID Kategorii</string>
+    <string name="kategorie">Wybierz kategorię ćwiczeń</string>
+
+    <string name="nowyplan">Nowy Plan</string>
+    <string name="wybierzplan">Wybierz plan do treningu</string>
+    <string name="nazwa_planu">Nazwa planu:</string>
+
+    <string name="cwiczenie">Ćwiczenie</string>
+    <string name="nazwa_cwiczenia">Nazwa ćwiczenia:</string>
+    <string name="nazwa_cwiczenia2">Nazwa:</string>
+    <string name="nazwa_cwiczenia3">Nazwa</string>
+    <string name="opis_cwiczenia">Opis ćwiczenia, zdjęcia, filmy</string>
+    <string name="brak_obrazka">Brak obrazka</string>
+
+    <string name="gwiazdki">Liczba gwiazdek:</string>
+    <string name="brak_gwiazdek">0</string>
+
+    <string name="czas_trwania">Czas trwania:</string>
+    <string name="czas_trwania2">Czas trwania serii (sekundy):</string>
+    <string name="sekund">s</string>
+    <string name="liczba_powtorzen">Liczba serii:</string>
+    <string name="opis">Opis:</string>
+    <string name="zdjecia_filmy">Zdjęcia i filmy:</string>
+    <string name="brak_zdjec">Brak zdjęć/filmów</string>
+
+    <string name="dodaj_cwiczenie">Dodaj ćwiczenie</string>
+    <string name="dodaj_przypomnienie">Dodaj przypomnienie</string>
+    <string name="dodaj_do_planu">Dodaj do planu</string>
+    <string name="pustyplan">Plan jest pusty.</string>
+
+    <string name="cw_wykonane">Ćwiczenie wykonane</string>
+    <string name="zakoncz_sesje">Zakończ sesję</string>
+    <string name="seria">Seria</string>
+
+</resources>

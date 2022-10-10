@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mój Fizjo</string>
+    <string name="app_icon">Icon</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zapisz">Save</string>
+    <string name="anuluj">Cancel</string>
+    <string name="potwierdz">Confirm</string>
+    <string name="jezyk">en</string>
+    <string name="caption">caption</string>
+
+    <string name="dom">Home</string>
+    <string name="plany">Plans</string>
+    <string name="trening">Training</string>
+    <string name="cwiczenia">Exercises</string>
+
+    <string name="login">Login</string>
+    <string name="logowanie">Login</string>
+    <string name="email">E-Mail</string>
+    <string name="haslo">Password</string>
+    <string name="brak_hasla">Forgot password</string>
+    <string name="brak_konta">Don\'t have an account yet?</string>
+    <string name="zaloguj">Log in</string>
+    <string name="zarejestruj">Register</string>
+    <string name="bezlogowania">Continue without login</string>
+
+    <string name="rejestracja">Registration</string>
+    <string name="powtorzhaslo">Repeat password</string>
+    <string name="powrot_do_logowania">Back to login</string>
+    <string name="wiadomosc_weryfikacyjna">Verification email sent. Click the link in the mail to finish verification. If you can\'t find the mail, search in Spam or Trash folders.</string>
+    <string name="wiadomosc_reset_hasla">Password reset email sent. If you can\'t find the mail, search in Spam or Trash folders.</string>
+
+    <string name="walidacja_brak_maila">Please provide the e-mail</string>
+    <string name="walidacja_brak_hasla">Please provide the password</string>
+    <string name="walidacja_brak_hasla2">Please repeat the password</string>
+    <string name="walidacja_zly_mail">Invalid e-mail address</string>
+    <string name="walidacja_za_krotkie_haslo">Password needs at least 6 characters</string>
+    <string name="walidacja_rozne_hasla">Passwords must match</string>
+
+    <string name="blad_wysylania_maila">E-mail sending error: </string>
+    <string name="blad_rejestracji">Registration error: </string>
+    <string name="blad_logowania">Login error: </string>
+    <string name="zle_haslo">Incorrect e-mail or password.</string>
+    <string name="niezweryfikowany_mail">Unverified e-mail address. Click the link on the mail sent to that address.</string>
+    <string name="nieznany_mail">Unidentified e-mail address.</string>
+
+    <string name="twoje_konto">Your Account</string>
+    <string name="wyloguj">Log Out</string>
+    <string name="zmien_haslo">Change Password</string>
+    <string name="usun_konto">Delete Account</string>
+    <string name="usun_konto2">Confirm and delete account permanently (cannot be undone!!!)</string>
+    <string name="nowe_haslo">New password</string>
+    <string name="odswierz_logowanie">This security-sensitive action requires re-authentication. Please retype your current e-mail and password.</string>
+    <string name="bledny_email">This does not match the current e-mail of the logged in user!</string>
+    <string name="bledne_haslo">This does not match the current password of the logged in user!</string>
+    <string name="haslo_zmienione">The password has been changed.</string>
+
+
+    <string name="osiagniecia">Your achievements</string>
+
+    <string name="powiadomienia">Notifications</string>
+
+    <string name="kategoria">Category</string>
+    <string name="kategoria_id">Category ID</string>
+    <string name="kategorie">Select exercise category</string>
+
+    <string name="nowyplan">New Plan</string>
+    <string name="wybierzplan">Select exercise plan</string>
+    <string name="nazwa_planu">Plan name:</string>
+
+    <string name="cwiczenie">Exercise</string>
+    <string name="nazwa_cwiczenia">Exercise name:</string>
+    <string name="nazwa_cwiczenia2">Name:</string>
+    <string name="nazwa_cwiczenia3">Name</string>
+    <string name="opis_cwiczenia">Exercise description, photos, videos</string>
+    <string name="brak_obrazka">No image</string>
+
+    <string name="gwiazdki">Stars:</string>
+    <string name="brak_gwiazdek">0</string>
+
+    <string name="czas_trwania">Duration:</string>
+    <string name="czas_trwania2">Set duration (seconds):</string>
+    <string name="sekund">s</string>
+    <string name="liczba_powtorzen">Sets:</string>
+    <string name="opis">Description:</string>
+    <string name="zdjecia_filmy">Photos and videos:</string>
+    <string name="brak_zdjec">No photos/videos</string>
+
+    <string name="dodaj_cwiczenie">Add exercise</string>
+    <string name="dodaj_przypomnienie">Add notification</string>
+    <string name="dodaj_do_planu">Add to plan</string>
+    <string name="pustyplan">Plan is empty.</string>
+
+    <string name="cw_wykonane">Exercise finished</string>
+    <string name="zakoncz_sesje">End session</string>
+    <string name="seria">Series</string>
+
+</resources>

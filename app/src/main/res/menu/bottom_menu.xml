@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/dom"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/plans"
+        android:icon="@drawable/ic_baseline_plans_24"
+        android:title="@string/plany"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/trening"
+        android:id="@+id/workout"
+        android:icon="@drawable/ic_baseline_training_24"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:title="@string/cwiczenia"
+        android:id="@+id/exercises"
+        android:icon="@drawable/ic_baseline_excersises_24"
+        app:showAsAction="ifRoom"/>
+</menu>

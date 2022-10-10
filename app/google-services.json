@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "242111989272",
+    "project_id": "aplikacjafizjo",
+    "storage_bucket": "aplikacjafizjo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242111989272:android:010cc6127a0e3e35f6e56d",
+        "android_client_info": {
+          "package_name": "com.example.mojfizjo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242111989272-788ng9vkdt4ukv9c88cbp00nek724ma9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mojfizjo",
+            "certificate_hash": "5a8271ddde5317493c2c1f9200128bf701273f26"
+          }
+        },
+        {
+          "client_id": "242111989272-aknnbn0ensq1dgd972d48j7rvcq4bru3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD6ZEo_YFj7gbHLhTjpV3rcIhJ8hYK0x4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242111989272-aknnbn0ensq1dgd972d48j7rvcq4bru3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
