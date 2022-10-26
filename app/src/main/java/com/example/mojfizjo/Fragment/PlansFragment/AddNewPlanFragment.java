@@ -77,7 +77,7 @@ public class AddNewPlanFragment extends Fragment {
                 fragment.setArguments(bundle);
                 //przelaczenie widoku na ten fragment
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.frame_layout, fragment);
+                fragmentTransaction.add(R.id.frame_layout, fragment).addToBackStack("addExercise");
                 fragmentTransaction.commit();
             }
         });

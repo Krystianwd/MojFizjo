@@ -54,7 +54,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
 
     @Override
     public void onBindViewHolder(@NonNull MainPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
+//        holder.setIsRecyclable(false);
         holder.planName.setText(planModels.get(position).getPlanName());
         for(int i=0;i<planModels.get(position).getExerciseModel().size();i++) {
             TextView textView = new TextView(context);
@@ -70,7 +70,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new BrowsePlanExercisesFragment();
             fragment.setArguments(bundle);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack("Browse").commit();
         });
     }
 
