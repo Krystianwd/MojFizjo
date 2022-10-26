@@ -47,7 +47,6 @@ public class AddNewPlanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: "+"BAMBAMBAM");
         View main_view = inflater.inflate(R.layout.fragment_add_new_plan, container, false);
         Button submitPlanButton = main_view.findViewById(R.id.submitPlan);
         Button addNewExercise = main_view.findViewById(R.id.addExerciseToPlan);
@@ -57,17 +56,16 @@ public class AddNewPlanFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(main_view.getContext()));
         try {
             receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");}
-        catch (Exception e){}
-            if (receivedIsAddingToPlan){
-                exerciseModels.add((ExerciseModel) getArguments().getSerializable("exercise"));
+        catch (Exception e){
+            Log.d(TAG, "onCreateView: "+e);
+        }
+        if (receivedIsAddingToPlan){
+            exerciseModels.add((ExerciseModel) getArguments().getSerializable("exercise"));
 
-                for(int i=0;i<exerciseModels.size();i++){
-                }
-                Log.d(TAG, "onCreateView: Added to layout");
-                receivedIsAddingToPlan = false;
-            }
+            receivedIsAddingToPlan = false;
+        }
 
-            Log.d(ContentValues.TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
+        Log.d(ContentValues.TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
 
         addNewExercise.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,13 +84,15 @@ public class AddNewPlanFragment extends Fragment {
         submitPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(int i=0;i<exerciseModels.size();i++){
+                    Log.d(TAG, "onClick: "+exerciseModels.get(i).getExerciseName());
+                }
                 EditText planName = (EditText) main_view.findViewById(R.id.planNameToAdd);
                 String  planNameString = planName.getText().toString();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> plan = new HashMap<>();
-                Map<String, Object> exercises = new HashMap<>();
-                exercises.put("exercises",exerciseModels);
                 plan.put("planName",planNameString);
+                plan.put("exercises",exerciseModels);
                 db.collection("plans")
                         .add(plan)
                         .addOnFailureListener(new OnFailureListener() {
@@ -104,18 +104,12 @@ public class AddNewPlanFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                for (ExerciseModel exerciseModel : exerciseModels) {
-                                    db.collection("plans").document(documentReference.getId())
-                                            .collection("exercises")
-                                            .add(exerciseModel);
-                                    Log.d(TAG, "onSuccess: Dodałem ciwczenie");
-                                }
-//                                Log.d(TAG, "onSuccess: Dodano nowy plan"+documentReference);
+                                Toast.makeText(requireActivity(),"Dodano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
+                                exerciseModels.clear();
+                                adapter.notifyDataSetChanged();
                             }
                         });
-                Toast.makeText(requireActivity(),"Dodano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
-                exerciseModels.clear();
-                adapter.notifyDataSetChanged();
+
             }
         });
         return main_view;

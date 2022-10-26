@@ -32,7 +32,13 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
     ArrayList<PlanModel> planModels;
     Activity activity;
 
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(hasStableIds);
+    }
+
     public MainPlanRecyclerViewAdapter(Context context, ArrayList<PlanModel> planModels, Activity activity) {
+//        setHasStableIds(true);
         this.context = context;
         this.planModels = planModels;
         this.activity = activity;
@@ -48,6 +54,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
 
     @Override
     public void onBindViewHolder(@NonNull MainPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         holder.planName.setText(planModels.get(position).getPlanName());
         for(int i=0;i<planModels.get(position).getExerciseModel().size();i++) {
             TextView textView = new TextView(context);
@@ -63,7 +70,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new BrowsePlanExercisesFragment();
             fragment.setArguments(bundle);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
         });
     }
 
@@ -82,6 +89,17 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             planName = itemView.findViewById(R.id.mainPlanName);
             exerciseName = itemView.findViewById(R.id.LinearLayoutPlansMain);
             parentLayout = itemView.findViewById(R.id.parent_view);
+
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 }

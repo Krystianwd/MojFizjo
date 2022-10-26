@@ -2,6 +2,8 @@ package com.example.mojfizjo.Fragment;
 
 import static android.content.ContentValues.TAG;
 
+import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
+
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -266,6 +268,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
 
         //przelaczenie widoku na ten fragment
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        requireActivity().getSupportFragmentManager().popBackStack("addExercise",POP_BACK_STACK_INCLUSIVE);
         fragmentTransaction.replace(R.id.frame_layout, fragment, "AddPlanFragment");
         fragmentTransaction.commit();
     }

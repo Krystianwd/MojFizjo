@@ -231,7 +231,7 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
             //przelaczenie widoku na ten fragment
             FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, fragment, "ExerciseViewFragment");
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "ExerciseViewFragment").addToBackStack("addExercise");
             fragmentTransaction.commit();
 
         }

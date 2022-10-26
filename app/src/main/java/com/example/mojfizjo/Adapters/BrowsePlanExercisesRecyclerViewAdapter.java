@@ -73,4 +73,14 @@ public class BrowsePlanExercisesRecyclerViewAdapter extends RecyclerView.Adapter
             time = itemView.findViewById(R.id.time);
         }
     }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 }

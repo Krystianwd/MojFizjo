@@ -144,7 +144,7 @@ public class ExercisesFragment extends Fragment implements View.OnClickListener{
 
         //przelaczenie widoku na ten fragment
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.replace(R.id.frame_layout, fragment).addToBackStack("addExercise");
         fragmentTransaction.commit();
     }
 }
