@@ -201,9 +201,11 @@ public class MainActivity extends AppCompatActivity {
                     for (DocumentChange docChange : value.getDocumentChanges()) {
                         if (docChange.getType() == DocumentChange.Type.ADDED) {
                             ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
+                            ArrayList<HashMap> exerciseModels1 = new ArrayList<>();
                             HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                             String planName = (String) map.get("planName");
-                            ArrayList<HashMap> exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
+                            exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
+                            Log.d(TAG, "setUpPLanModels: "+planName);
                             for (int i = 0; i < exerciseModels1.size(); i++) {
                                 Log.d(TAG, "setUpPLanModels: " + exerciseModels1.get(0));
                                 String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
