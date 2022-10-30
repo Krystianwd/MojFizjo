@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
-import com.example.mojfizjo.WorkoutExerciseViewFragment;
+import com.example.mojfizjo.Fragment.WorkoutExerciseViewFragment;
 
 import java.util.ArrayList;
 

@@ -48,6 +48,7 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutFragmentPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         holder.planName.setText(planModels.get(position).getPlanName());
         for(int i=0;i<planModels.get(position).getExerciseModel().size();i++) {
             TextView textView = new TextView(context);

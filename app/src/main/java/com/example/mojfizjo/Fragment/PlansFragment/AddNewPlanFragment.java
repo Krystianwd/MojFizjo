@@ -10,9 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,14 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojfizjo.Adapters.BrowsePlanExercisesRecyclerViewAdapter;
-import com.example.mojfizjo.Fragment.CategoryViewFragment;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
-import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.Models.ExerciseModel;
-import com.example.mojfizjo.Models.PlanModel;
 import com.example.mojfizjo.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -40,7 +36,10 @@ import java.util.Objects;
 
 public class AddNewPlanFragment extends Fragment {
     Boolean receivedIsAddingToPlan =false;
-    ArrayList<ExerciseModel> exerciseModels = new ArrayList<ExerciseModel>();
+    ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
+
+    //autentykacja
+    FirebaseAuth mAuth;
 
     public AddNewPlanFragment(){
     }
@@ -87,12 +86,21 @@ public class AddNewPlanFragment extends Fragment {
                 for(int i=0;i<exerciseModels.size();i++){
                     Log.d(TAG, "onClick: "+exerciseModels.get(i).getExerciseName());
                 }
-                EditText planName = (EditText) main_view.findViewById(R.id.planNameToAdd);
+                EditText planName = main_view.findViewById(R.id.planNameToAdd);
                 String  planNameString = planName.getText().toString();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> plan = new HashMap<>();
                 plan.put("planName",planNameString);
                 plan.put("exercises",exerciseModels);
+
+                //ustawienie nazwy uzytkownika
+                String uid = "";
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) uid = currentUser.getUid();
+                plan.put("userID", uid);
+
                 db.collection("plans")
                         .add(plan)
                         .addOnFailureListener(new OnFailureListener() {

@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     public ArrayList<PlanModel> planModels = new ArrayList<>();
-    public ArrayList<PlanModel> planModelsNonEmpty = new ArrayList<>();
 
     //regex e-mail uzywany w Firebase Auth
     public String emailRegex = ".+@.+\\..+";
@@ -201,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                     for (DocumentChange docChange : value.getDocumentChanges()) {
                         if (docChange.getType() == DocumentChange.Type.ADDED) {
                             ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-                            ArrayList<HashMap> exerciseModels1 = new ArrayList<>();
+                            ArrayList<HashMap> exerciseModels1;
                             HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                             String planName = (String) map.get("planName");
                             exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
@@ -214,7 +212,16 @@ public class MainActivity extends AppCompatActivity {
                                 String time = (String) exerciseModels1.get(i).get("time");
                                 exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
                             }
-                            planModels.add(new PlanModel(planName, exerciseModels));
+
+                            //sprawdzenie id uzytkownika
+                            String planUID = "";
+                            String userUID = "";
+                            if(map.get("userID") != null) planUID = (String)map.get("userID");
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            if (currentUser != null) userUID = currentUser.getUid();
+
+                            //dodanie do listy
+                            if(Objects.equals(planUID, userUID)) planModels.add(new PlanModel(planName, exerciseModels));
                         }
                     }
                 });
