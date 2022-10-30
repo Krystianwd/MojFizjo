@@ -15,22 +15,30 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mojfizjo.Exercise;
 import com.example.mojfizjo.R;
 import com.example.mojfizjo.Photo_video;
+import com.example.mojfizjo.Star;
 
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class CategoryViewFragment extends Fragment implements View.OnClickListener{
@@ -41,6 +49,12 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
     View view;
 
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
+
+    String receivedCategoryName;
+    String receivedCategoryID;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,8 +62,12 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_category_view, container, false);
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+
         //uchwyt do bazy danych z dokumentami Firebase Firestore
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         //uchwyt do bazy danych z grafika Firebase Storage
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         //uchwyt do ukladu glownego
@@ -57,12 +75,12 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
         //wyswietlana nazwa kategorii
         assert getArguments() != null;
-        String receivedCategoryName = getArguments().getString("selectedCategory");
+        receivedCategoryName = getArguments().getString("selectedCategory");
         TextView displayedCategoryName = view.findViewById(R.id.category_name);
         displayedCategoryName.setText(receivedCategoryName);
 
         //pobranie ID kategorii
-        String receivedCategoryID = getArguments().getString("categoryID");
+        receivedCategoryID = getArguments().getString("categoryID");
 
         //pobranie cwiczen z bd
         db.collection("exercises")
@@ -152,6 +170,35 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 exercisesListLayout.addView(new_generated_exercise_layout);
 
 
+                                //----- OPERACJE ASYNCHRONICZNE -----
+
+                                //aktualizacja liczby gwiazdek
+                                //pobranie wszystkich gwiazdek z bd
+                                db.collection("stars")
+                                        .get()
+                                        .addOnCompleteListener(task_internal -> {
+                                            if (task_internal.isSuccessful()) {
+
+                                                int starCounter = 0;
+
+                                                for (QueryDocumentSnapshot document_internal : task_internal.getResult()) {
+
+                                                    //pobranie danych gwiazdek
+                                                    Star star = document_internal.toObject(Star.class);
+                                                    star.setID(document_internal.getId());
+                                                    String star_exercise = star.getExercise();
+
+                                                    //ustawienie liczby gwiazdek
+                                                    if(Objects.equals(star_exercise, ID)){
+                                                        starCounter++;
+                                                        new_generated_exercise_starCounter.setText(String.valueOf(starCounter));
+                                                    }
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> Log.w(TAG, "downloadDBCollectionTask:failure", e));
+
+
                                 //aktualizacja obrazka, jezeli cwiczenie posiada wlasny
                                 //pobranie wszystkich obrazkow z bd
                                 db.collection("photos_videos")
@@ -212,18 +259,85 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
         //jezeli wcisniety przycisk to gwiazdka
         if(Objects.equals(selectedButton, getResources().getString(R.string.gwiazdki))){
-            Log.e(TAG, "star");
+            Log.d(TAG, "star");
+
+            //pobranie ID uzytkownika
+            String currentUserID = "";
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser!=null) currentUserID = currentUser.getUid();
+            final String finalCurrentUserID = currentUserID; //wymagana zmienna finalna do wyrazen lambda
+
+            db.collection("stars")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+
+                            boolean starFound = false;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                //pobranie danych gwiazdek
+                                Star star = document.toObject(Star.class);
+                                star.setID(document.getId());
+                                String star_ID = star.getID();
+                                String star_exercise = star.getExercise();
+                                String star_userID = star.getUserID();
+
+                                //sprawdzenie, czy dany uzytkownik juz dodal gwiazdke do tego cwiczenia
+                                if(Objects.equals(star_exercise, exerciseID) && Objects.equals(star_userID, finalCurrentUserID)){
+                                    starFound = true;
+                                    db.collection("stars")
+                                            .document(star_ID)
+                                            .delete()
+                                            .addOnCompleteListener(task_internal->{
+                                                if(task_internal.isSuccessful()){
+                                                    Log.d(TAG, "Document deleted");
+                                                    reloadFragment();
+                                                }
+                                                else {
+                                                    Log.e(TAG, "Error deleting document: ", task_internal.getException());
+                                                }
+                                            });
+                                }
+                            }
+
+                            //jezeli nie znaleziono gwiazdki, trzeba ja dodac
+                            if(!starFound){
+
+                                //ustawienie nowej gwiazdki
+                                Map<String, Object> star = new HashMap<>();
+                                star.put("exercise", exerciseID);
+                                star.put("userID", finalCurrentUserID);
+
+                                //dodanie do bd
+                                db.collection("stars")
+                                        .add(star)
+                                        .addOnFailureListener(e -> Log.e(MotionEffect.TAG, "onFailure: Can't add new star. "+ e.getCause()))
+                                        .addOnSuccessListener(documentReference -> {
+                                            Log.d(MotionEffect.TAG, "onComplete: Added new star. " + documentReference.getId());
+                                            reloadFragment();
+                                        });
+                            }
+
+                        }
+                        else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    });
+
         }
+
         //w przeciwnym wypadku jest to podglad cwiczenia
         else{
             //stworzenie instancji fragmentu widoku kategorii
             Fragment fragment = new ExerciseViewFragment();
             //przekazanie parametru z nazwa przycisku i ID kategorii do tej instancji
             Bundle bundle = new Bundle();
-            Boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
+            assert getArguments() != null;
+            boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
             if(receivedIsAddingToPlan){
-                bundle.putBoolean("isAddingToPlan",receivedIsAddingToPlan);
-                Log.d(TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
+                bundle.putBoolean("isAddingToPlan",true);
+                Log.d(TAG, "onClick: Passed boolean" +true);
             }
             bundle.putString("selectedExercise", selectedButton);
             bundle.putString("exerciseID", exerciseID);
@@ -235,5 +349,23 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
             fragmentTransaction.commit();
 
         }
+    }
+
+    public void reloadFragment(){
+
+        Bundle bundle = new Bundle();
+        Fragment fragment = new CategoryViewFragment();
+
+        assert getArguments() != null;
+        boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
+
+        bundle.putString("selectedCategory", receivedCategoryName);
+        bundle.putString("categoryID", receivedCategoryID);
+        bundle.putBoolean("isAddingToPlan", receivedIsAddingToPlan);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment, "ExerciseViewFragment").addToBackStack("addExercise");
+        fragmentTransaction.commit();
     }
 }
