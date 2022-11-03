@@ -93,5 +93,9 @@
     <string name="cw_wykonane">Ćwiczenie wykonane</string>
     <string name="zakoncz_sesje">Zakończ sesję</string>
     <string name="seria">Seria</string>
+    <string name="minutnik">0:00:00</string>
+    <string name="pauza">Pauza</string>
+    <string name="stop">Stop</string>
+    <string name="reset">Reset</string>
 
 </resources>
