@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -18,9 +19,14 @@ import android.widget.Toast;
 import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.R;
 
+import com.example.mojfizjo.UserSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,8 +36,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     View view;
 
-    //autentykacja
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     //pola tekstowe
     EditText emailText;
@@ -57,6 +63,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+
+        //uchwyt do bazy danych z dokumentami Firebase Firestore
+        db = FirebaseFirestore.getInstance();
 
         //ustawienie sluchaczy przyciskow
         Button registerButton = view.findViewById(R.id.register_button);
@@ -108,14 +117,64 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
 
+                                    //pobraine ID
+                                    final String newUserID = user.getUid();
+
                                     //wyslanie maila weryfikacyjnego
                                     user.sendEmailVerification()
                                             .addOnCompleteListener(task1 -> {
                                                 if (task1.isSuccessful()) {
                                                     Log.d(TAG, "Email sent.");
                                                     verificationMessage.setVisibility(View.VISIBLE);
+
+                                                    //stworzenie obiektu ustawien uzytkownika w bd
+                                                    db.collection("user_settings")
+                                                            .get()
+                                                            .addOnCompleteListener(task2 -> {
+                                                                if(task2.isSuccessful()){
+
+                                                                    boolean currentUserSettingsFound = false;
+
+                                                                    for (QueryDocumentSnapshot document : task2.getResult()) {
+
+                                                                        //pobranie danych ustawien uzytkownikow
+                                                                        UserSettings userSettings = document.toObject(UserSettings.class);
+                                                                        userSettings.setUID(document.getId());
+                                                                        String userSettings_userID = userSettings.getUserID();
+
+                                                                        //sprawdzenie, czy istnieja dane dla nowego uzytkownika
+                                                                        if(Objects.equals(userSettings_userID, newUserID)) currentUserSettingsFound = true;
+                                                                    }
+
+                                                                    //jezeli w bd nie ma ustawien dla uzytkownika o tym id, tworzymy je
+                                                                    if(!currentUserSettingsFound){
+
+                                                                        //domyslne ustawienia
+                                                                        Map<String, Object> newUserSettings = new HashMap<>();
+                                                                        newUserSettings.put("userID", newUserID);
+                                                                        newUserSettings.put("enableNotifications", false);
+                                                                        newUserSettings.put("notificationsTime", "00:00");
+                                                                        newUserSettings.put("notifyAboutSteps", false);
+                                                                        newUserSettings.put("notifyAboutWater", false);
+                                                                        newUserSettings.put("stepsNumber", 0);
+                                                                        newUserSettings.put("waterLiters", 0);
+
+                                                                        //dodanie do bd
+                                                                        db.collection("user_settings")
+                                                                                .add(newUserSettings)
+                                                                                .addOnFailureListener(e -> Log.e(MotionEffect.TAG, "onFailure: Can't add user settings. "+ e.getCause()))
+                                                                                .addOnSuccessListener(documentReference -> Log.d(MotionEffect.TAG, "onComplete: Added settings for new user. " + documentReference.getId()));
+                                                                    }
+
+                                                                }
+                                                                else {
+                                                                    Log.e(TAG, "Error getting documents: ", task2.getException());
+                                                                }
+                                                            });
+
                                                     //wylogowanie obecnego uzytkownika
                                                     mAuth.signOut();
+
                                                 } else {
                                                     Log.w(TAG, "createUserWithEmail:failure", task1.getException());
                                                     Toast.makeText(getContext(), getResources().getString(R.string.blad_wysylania_maila) + task1.getException(), Toast.LENGTH_SHORT).show();

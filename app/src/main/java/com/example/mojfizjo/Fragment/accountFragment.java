@@ -18,10 +18,13 @@ import android.widget.Toast;
 import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.R;
 
+import com.example.mojfizjo.UserSettings;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -38,8 +41,8 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
     View view;
     MainActivity mainActivity;
 
-    //autentykacja
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     //elementy ukladu
     EditText emailText;
@@ -62,6 +65,9 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+
+        //uchwyt do bazy danych z dokumentami Firebase Firestore
+        db = FirebaseFirestore.getInstance();
 
         //ustawienie sluchaczy przyciskow
         Button logoutButton = view.findViewById(R.id.logout_button);
@@ -206,6 +212,41 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
                                                 .addOnCompleteListener(task12 -> {
                                                     if (task12.isSuccessful()) {
                                                         Log.d(TAG, "User account deleted.");
+
+                                                        //usuniecie ustawien uzytkownika z bd
+                                                        db.collection("user_settings")
+                                                                .get()
+                                                                .addOnCompleteListener(task2 -> {
+                                                                    if(task2.isSuccessful()){
+
+                                                                        for (QueryDocumentSnapshot document : task2.getResult()) {
+
+                                                                            //pobranie danych ustawien uzytkownikow
+                                                                            UserSettings userSettings = document.toObject(UserSettings.class);
+                                                                            userSettings.setUID(document.getId());
+                                                                            String userSettings_userID = userSettings.getUserID();
+                                                                            String usersettings_ID = userSettings.getUID();
+
+                                                                            //sprawdzenie, czy uzytkownika ma zapisane ustawienia
+                                                                            if(Objects.equals(userSettings_userID, user.getUid())) {
+
+                                                                                //usuniecie ustawien
+                                                                                db.collection("user_settings")
+                                                                                        .document(usersettings_ID)
+                                                                                        .delete()
+                                                                                        .addOnCompleteListener(task3->{
+                                                                                            if(task3.isSuccessful())Log.d(TAG, "Document deleted");
+                                                                                            else Log.e(TAG, "Error deleting document: ", task3.getException());
+                                                                                        });
+                                                                            }
+                                                                        }
+
+                                                                    }
+                                                                    else {
+                                                                        Log.e(TAG, "Error getting documents: ", task2.getException());
+                                                                    }
+                                                                });
+
                                                         //go back to login screen
                                                         accountFragment.this.logOut();
                                                     }
