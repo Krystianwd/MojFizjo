@@ -29,11 +29,15 @@ public class WorkoutPlanViewFragmentRecyclerViewAdapter extends RecyclerView.Ada
     private static final String TAG = "Bam";
     Context context;
     ArrayList<ExerciseModel> exerciseModels;
+    ArrayList<String> exercisesFinished;
+    String planName;
     Activity activity;
 
-    public WorkoutPlanViewFragmentRecyclerViewAdapter(Context context,  ArrayList<ExerciseModel> exerciseModels, Activity activity) {
+    public WorkoutPlanViewFragmentRecyclerViewAdapter(Context context,  ArrayList<ExerciseModel> exerciseModels, ArrayList<String> exercisesFinished, String planName, Activity activity) {
         this.context = context;
         this.exerciseModels = exerciseModels;
+        this.exercisesFinished = exercisesFinished;
+        this.planName = planName;
         this.activity = activity;
     }
 
@@ -51,6 +55,13 @@ public class WorkoutPlanViewFragmentRecyclerViewAdapter extends RecyclerView.Ada
         Log.d(TAG, "onBindViewHolder: "+exerciseModels.get(position).getExerciseName());
         holder.exerciseName.setText(exerciseModels.get(position).getExerciseName());
 
+        String exerciseNameText = (String) holder.exerciseName.getText();
+
+        if(exercisesFinished.contains(exerciseNameText)){
+            Log.d(TAG, exerciseNameText);
+            holder.exerciseFinishedCheckbox.setImageResource(R.drawable.ic_baseline_check_box_24);
+        }
+
         holder.parentLayout.setOnClickListener(view -> {
 
             int getPosition = holder.getAdapterPosition();
@@ -61,6 +72,9 @@ public class WorkoutPlanViewFragmentRecyclerViewAdapter extends RecyclerView.Ada
             bundle.putInt("position",getPosition);
             bundle.putInt("sets",exerciseModel.getSets());
             bundle.putString("time",exerciseModel.getTime());
+            bundle.putStringArrayList("exercisesFinished",exercisesFinished);
+            bundle.putString("planName", planName);
+            bundle.putSerializable("exerlist",exerciseModels);
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new WorkoutExerciseViewFragment();
             fragment.setArguments(bundle);

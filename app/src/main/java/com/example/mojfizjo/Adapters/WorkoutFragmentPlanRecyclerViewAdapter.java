@@ -65,6 +65,7 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
                 bundle.putString("planName", planModel.getPlanName());
                 bundle.putInt("position",getPosition);
                 bundle.putSerializable("exerlist",planModel.getExerciseModel());
+                bundle.putStringArrayList("exercisesFinished", new ArrayList<>());
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 Fragment fragment = new WorkoutPlanViewFragment();
                 fragment.setArguments(bundle);

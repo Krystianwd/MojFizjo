@@ -1,18 +1,25 @@
 package com.example.mojfizjo.Fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -21,6 +28,9 @@ public class WorkoutExerciseViewFragment extends Fragment {
     String exerciseName;
     String time;
     int sets;
+    ArrayList<String> exercisesFinished;
+    String planName;
+    ArrayList<ExerciseModel> exerciseModels;
 
     int countdownSeconds;
     boolean isCountdownRunning;
@@ -33,6 +43,7 @@ public class WorkoutExerciseViewFragment extends Fragment {
     ImageButton pauseButton;
     ImageButton stopButton;
     ImageButton resetButton;
+    Button confirmExerciseFinishedButton;
 
     public WorkoutExerciseViewFragment() {
         // Required empty public constructor
@@ -67,6 +78,10 @@ public class WorkoutExerciseViewFragment extends Fragment {
         exerciseName = getArguments().getString("exerciseName");
         time = getArguments().getString("time");
         sets = getArguments().getInt("sets");
+        exercisesFinished = getArguments().getStringArrayList("exercisesFinished");
+        planName = getArguments().getString("planName");
+        exerciseModels = (ArrayList<ExerciseModel>)getArguments().getSerializable("exerlist");
+        Log.d(TAG, String.valueOf(exerciseModels.size()));
 
         //uchwyty do elementow widoku
         exerciseNameText = view.findViewById(R.id.exerciseNameText);
@@ -75,6 +90,7 @@ public class WorkoutExerciseViewFragment extends Fragment {
         pauseButton = view.findViewById(R.id.pauseButton);
         stopButton = view.findViewById(R.id.stopButton);
         resetButton = view.findViewById(R.id.resetButton);
+        confirmExerciseFinishedButton = view.findViewById(R.id.confirmExerciseFinishedButton);
 
         //dodanie sluchaczy przyciskow
         pauseButton.setOnClickListener(view -> {
@@ -90,6 +106,16 @@ public class WorkoutExerciseViewFragment extends Fragment {
             isCountdownRunning = false;
             resetTimer();
             togglePauseButtonVisual();
+        });
+        confirmExerciseFinishedButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("exercisesFinished", exercisesFinished);
+            bundle.putString("planName", planName);
+            bundle.putSerializable("exerlist", exerciseModels);
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            Fragment fragment = new WorkoutPlanViewFragment();
+            fragment.setArguments(bundle);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
         });
 
         //ustawienia poczatkowe
@@ -128,10 +154,16 @@ public class WorkoutExerciseViewFragment extends Fragment {
     }
 
     void nextSet(){
-        currentSet++;
-        String textToDisplay = getResources().getString(R.string.seria) + " " + currentSet + "/" + sets;
-        setCounterText.setText(textToDisplay);
-        resetTimer();
+        if(currentSet < sets){
+            currentSet++;
+            String textToDisplay = getResources().getString(R.string.seria) + " " + currentSet + "/" + sets;
+            setCounterText.setText(textToDisplay);
+            resetTimer();
+        }else{
+            confirmExerciseFinishedButton.setVisibility(View.VISIBLE);
+            isCountdownRunning = false;
+            exercisesFinished.add(exerciseName);
+        }
     }
 
     void togglePauseButtonVisual(){
