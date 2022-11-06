@@ -135,7 +135,7 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 new_generated_exercise_name.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
                                 new_generated_exercise_name.setText(name);
                                 new_generated_exercise_name.setTextColor(Color.parseColor("#A1887F"));
-                                new_generated_exercise_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
+                                new_generated_exercise_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
                                 new_generated_exercise_layout_internal.addView(new_generated_exercise_name);
 
                                 //dodanie pustego miejsca
@@ -147,12 +147,13 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 ImageButton new_generated_exercise_star = new ImageButton(view.getContext());
                                 int newExerciseStarID = View.generateViewId();
                                 new_generated_exercise_star.setId(newExerciseStarID);
-                                int starButtonHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
-                                new_generated_exercise_star.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, starButtonHeight, 1.0f));
-                                new_generated_exercise_star.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                                int starButtonSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
+                                new_generated_exercise_star.setLayoutParams(new LinearLayout.LayoutParams(starButtonSize, starButtonSize, 1.0f));
+                                new_generated_exercise_star.setBackgroundColor(Color.parseColor("#EEEEEE"));
                                 new_generated_exercise_star.setContentDescription(getResources().getString(R.string.gwiazdki));
                                 new_generated_exercise_star.setTag(ID);
                                 new_generated_exercise_star.setImageResource(R.drawable.ic_baseline_stars_24);
+                                new_generated_exercise_star.setScaleType(ImageButton.ScaleType.CENTER_CROP);
                                 new_generated_exercise_star.setOnClickListener(this);
                                 new_generated_exercise_layout_internal.addView(new_generated_exercise_star);
 
@@ -163,7 +164,7 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 new_generated_exercise_starCounter.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
                                 new_generated_exercise_starCounter.setText("0");
                                 new_generated_exercise_starCounter.setTextColor(Color.parseColor("#A1887F"));
-                                new_generated_exercise_starCounter.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
+                                new_generated_exercise_starCounter.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
                                 new_generated_exercise_layout_internal.addView(new_generated_exercise_starCounter);
 
                                 new_generated_exercise_layout.addView(new_generated_exercise_layout_internal);
@@ -187,11 +188,21 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                                     Star star = document_internal.toObject(Star.class);
                                                     star.setID(document_internal.getId());
                                                     String star_exercise = star.getExercise();
+                                                    String star_userID = star.getUserID();
 
                                                     //ustawienie liczby gwiazdek
                                                     if(Objects.equals(star_exercise, ID)){
                                                         starCounter++;
                                                         new_generated_exercise_starCounter.setText(String.valueOf(starCounter));
+
+                                                        //zmiana koloru jezeli uzytkownik dodal gwiazdke
+                                                        String currentUserID = "";
+                                                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                                                        if(currentUser!=null) currentUserID = currentUser.getUid();
+                                                        if(Objects.equals(star_userID, currentUserID)){
+                                                            new_generated_exercise_star.setBackgroundColor(Color.parseColor("#FCBA03"));
+                                                        }
+
                                                     }
                                                 }
                                             }
