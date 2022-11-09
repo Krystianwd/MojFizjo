@@ -5,12 +5,15 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     BottomNavigationView boottomNavigationview;
     FrameLayout frameLayout;
-
+    DrawerLayout drawerLayout;
     //autentykacja
     FirebaseAuth mAuth;
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpPLanModels();
-
+        String[] mTestArray;
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
         boottomNavigationview = findViewById(R.id.bottom_navigation);
+        drawerLayout = findViewById(R.id.drawer_layout);
         frameLayout = findViewById(R.id.frame_layout);
         MainPlanRecyclerViewAdapter adapter = new MainPlanRecyclerViewAdapter(this, planModels, this);
         PlansFragment plansFragment = new PlansFragment(planModels, adapter);
@@ -165,24 +169,26 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Wyszukaj", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.account:
-                accountFragment accountFragment = new accountFragment();
-                boolean isRegisteredAccount = false;
-
-                //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null) {
-                    String email = user.getEmail();
-                    if (email != null) {
-                        isRegisteredAccount = true;
-                    }
-                }
-                //przeniesienie na strone konta
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
-                accountFragment.setArguments(bundle);
-                selectedFragment(accountFragment);
-
-                break;
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+//                            accountFragment accountFragment = new accountFragment();
+//                boolean isRegisteredAccount = false;
+//
+//                //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
+//                FirebaseUser user = mAuth.getCurrentUser();
+//                if (user != null) {
+//                    String email = user.getEmail();
+//                    if (email != null) {
+//                        isRegisteredAccount = true;
+//                    }
+//                }
+//                //przeniesienie na strone konta
+//                Bundle bundle = new Bundle();
+//                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
+//                accountFragment.setArguments(bundle);
+//                selectedFragment(accountFragment);
+//
+//                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -198,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     for (DocumentChange docChange : value.getDocumentChanges()) {
                         if (docChange.getType() == DocumentChange.Type.ADDED) {
                             ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-                            ArrayList<HashMap> exerciseModels1;
+                            ArrayList<HashMap> exerciseModels1 = new ArrayList<HashMap>();
                             HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                             String planName = (String) map.get("planName");
                             exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");

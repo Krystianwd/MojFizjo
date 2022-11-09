@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="Personalizacja">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_message"
+                    android:icon="@drawable/ic_baseline_healing_24"
+                    android:title="Plan tygodniowy" />
+                <item
+                    android:id="@+id/nav_chat"
+                    android:icon="@drawable/ic_baseline_healing_24"
+                    android:title="Powiadomienia" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Konto">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_baseline_healing_24"
+                android:title="Wyloguj się" />
+            <item
+                android:id="@+id/nav_change_password"
+                android:icon="@drawable/ic_baseline_healing_24"
+                android:title="Zmień haslo" />
+            <item
+                android:id="@+id/nav_delete_acc"
+                android:icon="@drawable/ic_baseline_healing_24"
+                android:title="Usuń konto" />
+        </menu>
+    </item>
+</menu>

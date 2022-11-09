@@ -34,10 +34,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AddNewPlanFragment extends Fragment {
+public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialog.DialogListener{
     Boolean receivedIsAddingToPlan =false;
     ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-
+    View main_view;
+    BrowsePlanExercisesRecyclerViewAdapter adapter;
     //autentykacja
     FirebaseAuth mAuth;
 
@@ -46,11 +47,11 @@ public class AddNewPlanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View main_view = inflater.inflate(R.layout.fragment_add_new_plan, container, false);
+        main_view = inflater.inflate(R.layout.fragment_add_new_plan, container, false);
         Button submitPlanButton = main_view.findViewById(R.id.submitPlan);
         Button addNewExercise = main_view.findViewById(R.id.addExerciseToPlan);
         RecyclerView recyclerView = main_view.findViewById(R.id.addNewPlanRecyclerView);
-        BrowsePlanExercisesRecyclerViewAdapter adapter = new BrowsePlanExercisesRecyclerViewAdapter(main_view.getContext(), exerciseModels, requireActivity());
+        adapter = new BrowsePlanExercisesRecyclerViewAdapter(main_view.getContext(), exerciseModels, requireActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(main_view.getContext()));
         try {
@@ -83,16 +84,55 @@ public class AddNewPlanFragment extends Fragment {
         submitPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i=0;i<exerciseModels.size();i++){
-                    Log.d(TAG, "onClick: "+exerciseModels.get(i).getExerciseName());
-                }
+                SetDateToRemindDialog setDateToRemindDialog = new SetDateToRemindDialog();
+                setDateToRemindDialog.show(getParentFragmentManager(),"setDateToRemindDialog");
+//                EditText planName = main_view.findViewById(R.id.planNameToAdd);
+//                String  planNameString = planName.getText().toString();
+//                FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                Map<String, Object> plan = new HashMap<>();
+//                plan.put("planName",planNameString);
+//                plan.put("exercises",exerciseModels);
+//
+//                //ustawienie nazwy uzytkownika
+//                String uid = "";
+//                mAuth = FirebaseAuth.getInstance();
+//                mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+//                FirebaseUser currentUser = mAuth.getCurrentUser();
+//                if (currentUser != null) uid = currentUser.getUid();
+//                plan.put("userID", uid);
+//
+//                db.collection("plans")
+//                        .add(plan)
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.d(TAG, "onFailure: Nie dodano nowy plan");
+//                            }
+//                        })
+//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                            @Override
+//                            public void onSuccess(DocumentReference documentReference) {
+//                                Toast.makeText(requireActivity(),"Dodano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
+//                                exerciseModels.clear();
+//                                adapter.notifyDataSetChanged();
+//                            }
+//                        });
+
+            }
+        });
+        return main_view;
+    }
+
+    @Override
+    public void applyText(ArrayList<String> selectedDays, String selectedHour) {
                 EditText planName = main_view.findViewById(R.id.planNameToAdd);
                 String  planNameString = planName.getText().toString();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> plan = new HashMap<>();
                 plan.put("planName",planNameString);
                 plan.put("exercises",exerciseModels);
-
+                plan.put("remindDay",selectedDays);
+                plan.put("remindHour",selectedHour);
                 //ustawienie nazwy uzytkownika
                 String uid = "";
                 mAuth = FirebaseAuth.getInstance();
@@ -117,10 +157,11 @@ public class AddNewPlanFragment extends Fragment {
                                 adapter.notifyDataSetChanged();
                             }
                         });
+    }
 
-            }
-        });
-        return main_view;
+    @Override
+    public void applyTextSkip() {
+
     }
 }
 
