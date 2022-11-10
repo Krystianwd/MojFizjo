@@ -43,25 +43,11 @@ public class SetDateToRemindDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.dialog_set_time_to_remind, null);
 
-//        Spinner spinnerDays = dialogLayout.findViewById(R.id.remind_day);
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapterDays = ArrayAdapter.createFromResource(requireActivity(),
-//                R.array.Days, R.layout.spinner_select_day);
-//        // Specify the layout to use when the list of choices appears
-//        adapterDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinnerDays.setAdapter(adapterDays);
 
         ArrayAdapter listAdapter = new ArrayAdapter<String>(requireActivity(), R.layout.list_day,R.id.textviewDaysList, days);
         ListView listView = (ListView) dialogLayout.findViewById(R.id.remind_day_list);
         listView.setAdapter(listAdapter);
 
-//        listView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -88,7 +74,6 @@ public class SetDateToRemindDialog extends DialogFragment {
         // Set the dialog title
 
         builder.setView(dialogLayout)
-
                 // Set the action buttons
                 .setPositiveButton("Zatwierdz", new DialogInterface.OnClickListener() {
                     @Override

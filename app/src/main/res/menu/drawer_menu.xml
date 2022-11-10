@@ -6,11 +6,11 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_message"
+                    android:id="@+id/nav_week_plan"
                     android:icon="@drawable/ic_baseline_healing_24"
                     android:title="Plan tygodniowy" />
                 <item
-                    android:id="@+id/nav_chat"
+                    android:id="@+id/nav_notification"
                     android:icon="@drawable/ic_baseline_healing_24"
                     android:title="Powiadomienia" />
             </group>

@@ -86,38 +86,6 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
             public void onClick(View view) {
                 SetDateToRemindDialog setDateToRemindDialog = new SetDateToRemindDialog();
                 setDateToRemindDialog.show(getParentFragmentManager(),"setDateToRemindDialog");
-//                EditText planName = main_view.findViewById(R.id.planNameToAdd);
-//                String  planNameString = planName.getText().toString();
-//                FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                Map<String, Object> plan = new HashMap<>();
-//                plan.put("planName",planNameString);
-//                plan.put("exercises",exerciseModels);
-//
-//                //ustawienie nazwy uzytkownika
-//                String uid = "";
-//                mAuth = FirebaseAuth.getInstance();
-//                mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
-//                FirebaseUser currentUser = mAuth.getCurrentUser();
-//                if (currentUser != null) uid = currentUser.getUid();
-//                plan.put("userID", uid);
-//
-//                db.collection("plans")
-//                        .add(plan)
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Log.d(TAG, "onFailure: Nie dodano nowy plan");
-//                            }
-//                        })
-//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                            @Override
-//                            public void onSuccess(DocumentReference documentReference) {
-//                                Toast.makeText(requireActivity(),"Dodano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
-//                                exerciseModels.clear();
-//                                adapter.notifyDataSetChanged();
-//                            }
-//                        });
-
             }
         });
         return main_view;

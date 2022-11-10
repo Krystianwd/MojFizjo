@@ -32,6 +32,7 @@ import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     BottomNavigationView boottomNavigationview;
     FrameLayout frameLayout;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         MainPlanRecyclerViewAdapter adapter = new MainPlanRecyclerViewAdapter(this, planModels, this);
         PlansFragment plansFragment = new PlansFragment(planModels, adapter);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         boottomNavigationview.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
@@ -187,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
 //                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
 //                accountFragment.setArguments(bundle);
 //                selectedFragment(accountFragment);
-//
 //                break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -230,6 +232,50 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_logout:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                //ustawienie ukladu
+//                hideChangePasswordLayout();
+//                hideDeleteAccountLayout();
+
+                //wylogowanie
+                mAuth.signOut();
+
+                //ukrycie menu
+                this.hideMenus();
+
+                //przelaczenie widoku na fragment logowania
+                Fragment fragment = new LoginFragment();
+                this.selectedFragment(fragment);
+                break;
+            case R.id.nav_change_password:
+                drawerLayout.closeDrawer(GravityCompat.START);
+                accountFragment accountFragment = new accountFragment();
+                boolean isRegisteredAccount = false;
+
+                //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    String email = user.getEmail();
+                    if (email != null) {
+                        isRegisteredAccount = true;
+                    }
+                }
+                //przeniesienie na strone konta
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
+                accountFragment.setArguments(bundle);
+                selectedFragment(accountFragment);
+                break;
+            case R.id.nav_delete_acc:
+                break;
+        }
+        return true;
     }
 }
 

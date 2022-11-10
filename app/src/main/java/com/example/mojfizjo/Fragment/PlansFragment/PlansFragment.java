@@ -35,7 +35,6 @@ public class PlansFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: "+planModels);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plans, container, false);
         Button addPlanButton = view.findViewById(R.id.addPlan);
