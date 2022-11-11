@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //autentykacja
     FirebaseAuth mAuth;
 
+    String currentFragment = null;
+
+    MainPlanRecyclerViewAdapter adapter;
+
     public ArrayList<PlanModel> planModels = new ArrayList<>();
 
     //regex e-mail uzywany w Firebase Auth
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpPLanModels();
-        String[] mTestArray;
+        //String[] mTestArray;
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boottomNavigationview = findViewById(R.id.bottom_navigation);
         drawerLayout = findViewById(R.id.drawer_layout);
         frameLayout = findViewById(R.id.frame_layout);
-        MainPlanRecyclerViewAdapter adapter = new MainPlanRecyclerViewAdapter(this, planModels, this);
+        adapter = new MainPlanRecyclerViewAdapter(this, planModels, this);
         PlansFragment plansFragment = new PlansFragment(planModels, adapter);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -84,17 +87,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.home:
                     HomeFragment homeFragment = new HomeFragment();
                     selectedFragment(homeFragment);
+                    currentFragment = "home";
                     break;
                 case R.id.plans:
                     selectPlanFragment(plansFragment);
+                    currentFragment = "plans";
                     break;
                 case R.id.workout:
                     WorkoutFragment workoutFragment = new WorkoutFragment(planModels);
                     selectedFragment(workoutFragment);
+                    currentFragment = "workout";
                     break;
                 case R.id.exercises:
                     ExercisesFragment exercisesFragment = new ExercisesFragment();
                     selectedFragment(exercisesFragment);
+                    currentFragment = "exercises";
                     break;
             }
             return false;
@@ -126,6 +133,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Jezeli uzytkownik nie jest zarejestrowany, przekierowanie na strone logowania
             Fragment fragment = new LoginFragment();
             selectedFragment(fragment);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("currentFragment", currentFragment);
+    }
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        currentFragment = savedInstanceState.getString("currentFragment");
+        switch(currentFragment){
+            case "home":
+                HomeFragment homeFragment = new HomeFragment();
+                selectedFragment(homeFragment);
+                break;
+            case "plans":
+                PlansFragment plansFragment = new PlansFragment(planModels, adapter);
+                selectPlanFragment(plansFragment);
+                break;
+            case "workout":
+                WorkoutFragment workoutFragment = new WorkoutFragment(planModels);
+                selectedFragment(workoutFragment);
+                break;
+            case "exercises":
+                ExercisesFragment exercisesFragment = new ExercisesFragment();
+                selectedFragment(exercisesFragment);
+                break;
         }
     }
 
@@ -174,23 +210,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.account:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-//                            accountFragment accountFragment = new accountFragment();
-//                boolean isRegisteredAccount = false;
-//
-//                //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
-//                FirebaseUser user = mAuth.getCurrentUser();
-//                if (user != null) {
-//                    String email = user.getEmail();
-//                    if (email != null) {
-//                        isRegisteredAccount = true;
-//                    }
-//                }
-//                //przeniesienie na strone konta
-//                Bundle bundle = new Bundle();
-//                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
-//                accountFragment.setArguments(bundle);
-//                selectedFragment(accountFragment);
-//                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -206,17 +225,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for (DocumentChange docChange : value.getDocumentChanges()) {
                         if (docChange.getType() == DocumentChange.Type.ADDED) {
                             ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-                            ArrayList<HashMap> exerciseModels1 = new ArrayList<HashMap>();
+                            ArrayList<HashMap> exerciseModels1 = new ArrayList<>();
                             HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                             String planName = (String) map.get("planName");
                             exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
                             Log.d(TAG, "setUpPLanModels: "+planName);
-                            for (int i = 0; i < exerciseModels1.size(); i++) {
+                            for (int i = 0; i < Objects.requireNonNull(exerciseModels1).size(); i++) {
                                 Log.d(TAG, "setUpPLanModels: " + exerciseModels1.get(0));
                                 String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
                                 Long sets = (Long) exerciseModels1.get(i).get("sets");
                                 DocumentReference exercise = (DocumentReference) exerciseModels1.get(i).get("exercise");
                                 String time = (String) exerciseModels1.get(i).get("time");
+                                assert sets != null;
                                 exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
                             }
 
@@ -234,14 +254,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //ustawienie ukladu
-//                hideChangePasswordLayout();
-//                hideDeleteAccountLayout();
 
                 //wylogowanie
                 mAuth.signOut();
@@ -254,82 +272,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.selectedFragment(fragment);
                 break;
             case R.id.nav_change_password:
-                drawerLayout.closeDrawer(GravityCompat.START);
-                accountFragment accountFragment = new accountFragment();
-                boolean isRegisteredAccount = false;
-
-                //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null) {
-                    String email = user.getEmail();
-                    if (email != null) {
-                        isRegisteredAccount = true;
-                    }
-                }
-                //przeniesienie na strone konta
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isRegisteredAccount", isRegisteredAccount);
-                accountFragment.setArguments(bundle);
-                selectedFragment(accountFragment);
+                    moveToAccountFragment("change_password");
                 break;
             case R.id.nav_delete_acc:
+                moveToAccountFragment("delete_account");
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
         return true;
     }
+
+    public void moveToAccountFragment(String mode){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        accountFragment accountFragment = new accountFragment();
+
+        //sprawdzenie, czy uzytkownik istnieje i ma email (nie anonimowy)
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String email = user.getEmail();
+            if (email != null) {
+                //przeniesienie na strone konta
+                Bundle bundle = new Bundle();
+                bundle.putString("accountFragmentMode", mode);
+                accountFragment.setArguments(bundle);
+                selectedFragment(accountFragment);
+            }
+        }
+    }
 }
-
-
-//    public void setUpPLanModels1() {
-//        Log.d(MotionEffect.TAG, "onEvent: Wykonalem set up plan");
-//        //uchwyt do bazy danych z dokumentami Firebase Firestore
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("plans")
-//                .addSnapshotListener((value, error) -> {
-//                    assert value != null;
-//                    for (DocumentChange docChange : value.getDocumentChanges()) {
-//                        if (docChange.getType() == DocumentChange.Type.ADDED) {
-//                            ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-//                            db.collection("plans").document(docChange.getDocument().getId()).collection("exercises")
-//                                    .addSnapshotListener((value1, error1) -> {
-//                                        assert value1 != null;
-//                                        for (DocumentChange exerDocChange : value1.getDocumentChanges()) {
-//                                            if (exerDocChange.getType() == DocumentChange.Type.ADDED) {
-//                                                DocumentReference ref = exerDocChange.getDocument().getDocumentReference("exercise");
-//                                                assert ref != null;
-//                                                ref.addSnapshotListener((value11, error11) -> {
-//                                                    assert value11 != null;
-//                                                    String exerciseName = value11.getString("name");
-//                                                    Long sets = exerDocChange.getDocument().getLong("sets");
-//                                                    String time = exerDocChange.getDocument().getString("time");
-//                                                    assert sets != null;
-//                                                    exerciseModels.add(new ExerciseModel(exerciseName, ref, sets.intValue(), time));
-//
-//                                                    //wypelnienie listy planow, ktore nie sa puste i nie maja duplikatow
-//                                                    boolean duplicateExists = false;
-//                                                    String name = docChange.getDocument().getString("planName");
-//                                                    for (PlanModel planModel: planModelsNonEmpty){
-//                                                        if (Objects.equals(planModel.getPlanName(), name)) {
-//                                                            duplicateExists = true;
-//                                                            break;
-//                                                        }
-//                                                    }
-//                                                    if (!duplicateExists){
-//                                                        PlanModel p = new PlanModel(name, exerciseModels);
-//                                                        planModelsNonEmpty.add(p);
-//                                                    }
-//                                                });
-//
-//                                            }
-//
-//                                        }
-//
-//                                        //wypelnienie listy wszystkich planow
-//                                        planModels.add(new PlanModel(docChange.getDocument().getString("planName"), exerciseModels));
-////                                        Log.d(TAG, "onEvent: "+planModels.get(0).getExerciseModel().get(0).getSets());
-//                                    });
-//                        }
-//                    }
-//
-//                });
-//    }

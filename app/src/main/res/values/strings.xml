@@ -53,6 +53,8 @@
     <string name="bledny_email">To nie jest aktualny e-mail obecnie zalogowanego użytkownika!</string>
     <string name="bledne_haslo">To nie jest aktualne hasło obecnie zalogowanego użytkownika!</string>
     <string name="haslo_zmienione">Hasło zostało zmienione.</string>
+    <string name="zmiana_hasla">Zmiana hasła</string>
+    <string name="usuwanie_konta">Usuwanie konta</string>
 
 
     <string name="osiagniecia">Twoje osiągnięcia</string>

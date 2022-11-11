@@ -19,53 +19,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#00BCD4"
-        android:contentDescription="@string/wyloguj"
-        android:text="@string/wyloguj"
-        android:textColor="#000000"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_header"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
-        android:id="@+id/change_password_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#00BCD4"
-        android:contentDescription="@string/zmien_haslo"
-        android:text="@string/zmien_haslo"
-        android:textColor="#000000"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout_button"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
-        android:id="@+id/delete_account_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#00BCD4"
-        android:contentDescription="@string/usun_konto"
-        android:text="@string/usun_konto"
-        android:textColor="#000000"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_password_button"
-        tools:ignore="TextContrastCheck" />
-
     <EditText
         android:id="@+id/input_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:autofillHints="emailAddress"
         android:ems="10"
         android:hint="@string/email"
@@ -74,7 +32,8 @@
         android:textColorHint="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_account_button" />
+        tools:layout_editor_absoluteY="277dp"
+        app:layout_constraintTop_toBottomOf="@+id/account_header" />
 
     <EditText
         android:id="@+id/input_password"

@@ -54,6 +54,8 @@
     <string name="bledny_email">This does not match the current e-mail of the logged in user!</string>
     <string name="bledne_haslo">This does not match the current password of the logged in user!</string>
     <string name="haslo_zmienione">The password has been changed.</string>
+    <string name="zmiana_hasla">Change Password</string>
+    <string name="usuwanie_konta">Delete Account</string>
 
 
     <string name="osiagniecia">Your achievements</string>

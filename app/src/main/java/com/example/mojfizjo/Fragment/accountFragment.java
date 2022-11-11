@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mojfizjo.MainActivity;
@@ -49,6 +50,7 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
     EditText passwordText;
     EditText newPasswordText;
     Button confirmButton;
+    TextView accountHeader;
 
     //wybor funkcji przycisku
     String confirmButtonFunction;
@@ -70,12 +72,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         db = FirebaseFirestore.getInstance();
 
         //ustawienie sluchaczy przyciskow
-        Button logoutButton = view.findViewById(R.id.logout_button);
-        logoutButton.setOnClickListener(this);
-        Button changePasswordButton = view.findViewById(R.id.change_password_button);
-        changePasswordButton.setOnClickListener(this);
-        Button deleteAccountButton = view.findViewById(R.id.delete_account_button);
-        deleteAccountButton.setOnClickListener(this);
         confirmButton = view.findViewById(R.id.confirm_button);
         confirmButton.setOnClickListener(this);
 
@@ -84,25 +80,28 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         passwordText = view.findViewById(R.id.input_password);
         newPasswordText = view.findViewById(R.id.input_new_password);
 
+        //naglowek
+        accountHeader = view.findViewById(R.id.account_header);
+
         //ukrycie domyslnie ukladu usuniecia konta i zmiany hasla
         hideChangePasswordLayout();
         hideDeleteAccountLayout();
 
-        //usuniecie 2 przyciskow w wypadku niezarejestrowanego uzytkownika
+        emailText.setError(getResources().getString(R.string.walidacja_brak_maila));
+        passwordText.setError(getResources().getString(R.string.walidacja_brak_hasla));
+
         assert getArguments() != null;
-        boolean isRegisteredAccount = getArguments().getBoolean("isRegisteredAccount");
-        if(!isRegisteredAccount){
-            changePasswordButton.setVisibility(View.GONE);
-            deleteAccountButton.setVisibility(View.GONE);
+        String mode = getArguments().getString("accountFragmentMode");
+        switch (mode){
+            case "change_password":
+                showChangePasswordLayout();
+                break;
+            case "delete_account":
+                showDeleteAccountLayout();
+                break;
         }
 
         return view;
-    }
-
-    private void showAuthenticationWarning(){
-        Toast.makeText(getContext(), getResources().getString(R.string.odswierz_logowanie), Toast.LENGTH_LONG).show();
-        emailText.setError(getResources().getString(R.string.walidacja_brak_maila));
-        passwordText.setError(getResources().getString(R.string.walidacja_brak_hasla));
     }
 
     private void hideChangePasswordLayout(){
@@ -122,7 +121,7 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         emailText.setVisibility(View.VISIBLE);
         passwordText.setVisibility(View.VISIBLE);
         newPasswordText.setVisibility(View.VISIBLE);
-        showAuthenticationWarning();
+        accountHeader.setText(getResources().getString(R.string.zmiana_hasla));
     }
 
     private void hideDeleteAccountLayout(){
@@ -140,7 +139,7 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         confirmButtonFunction = "delete_account";
         emailText.setVisibility(View.VISIBLE);
         passwordText.setVisibility(View.VISIBLE);
-        showAuthenticationWarning();
+        accountHeader.setText(getResources().getString(R.string.usuwanie_konta));
     }
 
     @Override
@@ -153,29 +152,7 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
         mainActivity = (MainActivity)getContext();
         assert mainActivity != null;
 
-        //przycisk "wyloguj sie"
-        if(Objects.equals(selectedButton, getResources().getString(R.string.wyloguj))) {
-            logOut();
-        }
-
-        //przycisk "zmien haslo"
-        else if(Objects.equals(selectedButton, getResources().getString(R.string.zmien_haslo))) {
-
-            //ustawienie ukladu
-            hideDeleteAccountLayout();
-            showChangePasswordLayout();
-        }
-
-        //przycisk "usun konto"
-        else if(Objects.equals(selectedButton, getResources().getString(R.string.usun_konto))) {
-
-            //ustawienie ukladu
-            hideChangePasswordLayout();
-            showDeleteAccountLayout();
-        }
-
-        //przycisk "potwierdz"
-        else if(Objects.equals(selectedButton, getResources().getString(R.string.potwierdz))) {
+        if(Objects.equals(selectedButton, getResources().getString(R.string.potwierdz))) {
 
             //walidacja danych w polach tekstowych
             isCorrectLoginInputProvided = validateLoginInfo();
