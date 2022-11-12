@@ -99,5 +99,8 @@
     <string name="pauza">Pauza</string>
     <string name="stop">Stop</string>
     <string name="reset">Reset</string>
+    <string name="podglad">Podgląd</string>
+    <string name="brak_podgladu">Brak podglądu</string>
+    <string name="powrot_do_treningu">Powrót do treningu</string>
 
 </resources>

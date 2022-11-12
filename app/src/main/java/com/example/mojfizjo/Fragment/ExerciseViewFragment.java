@@ -5,10 +5,13 @@ import static android.content.ContentValues.TAG;
 import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
@@ -66,7 +69,16 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
         //uchwyt do ukladu glownego
         LinearLayout exerciseViewLayout = view.findViewById(R.id.exercise_view_layout);
+
+        //argumenty pobrane z poprzedniego widoku
         assert getArguments() != null;
+        String receivedExerciseName = getArguments().getString("selectedExercise");
+        String receivedExerciseID = getArguments().getString("exerciseID");
+
+
+        // ----- ALTERNATYWNE TRYBY WIDOKU -----
+
+        //dodawanie cwiczenia do planu
         boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
         if(receivedIsAddingToPlan){
             Button submitAddingToPlan = view.findViewById(R.id.submitAddingExerciseToPlan);
@@ -77,14 +89,30 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                 addNewExerciseDialog.show(getParentFragmentManager(),"addNewExerciseDialog");
             });
         }
+
+        //wyswietlanie podgladu cwiczenia
+        boolean receivedIsShowingPreview = getArguments().getBoolean("isShowingPreview");
+        if(receivedIsShowingPreview){
+            Button submitAddingToPlan = view.findViewById(R.id.submitAddingExerciseToPlan);
+            submitAddingToPlan.setEnabled(true);
+            submitAddingToPlan.setVisibility(View.VISIBLE);
+            submitAddingToPlan.setText(getResources().getString(R.string.powrot_do_treningu));
+            Drawable replacementImage = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_change_circle_24);
+            submitAddingToPlan.setCompoundDrawablesRelativeWithIntrinsicBounds(null, replacementImage, null, null);
+            submitAddingToPlan.setOnClickListener(view -> {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                fm.popBackStack ("showPreview", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            });
+        }
+
+        // ----- -----
+
+
         //wyswietlana nazwa cwiczenia
-        assert getArguments() != null;
-        String receivedExerciseName = getArguments().getString("selectedExercise");
         TextView displayedExerciseName = view.findViewById(R.id.registration_header);
         displayedExerciseName.setText(receivedExerciseName);
 
-        //pobranie ID cwiczenia i pobranie z bd cwiczenia o tym ID
-        String receivedExerciseID = getArguments().getString("exerciseID");
+        //pobranie z bd cwiczenia o tym ID
         db.collection("exercises").document(receivedExerciseID)
                 .get()
                 .addOnCompleteListener(task -> {

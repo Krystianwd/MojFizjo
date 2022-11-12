@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.util.Log;
@@ -15,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class WorkoutExerciseViewFragment extends Fragment {
@@ -44,6 +47,7 @@ public class WorkoutExerciseViewFragment extends Fragment {
     ImageButton stopButton;
     ImageButton resetButton;
     Button confirmExerciseFinishedButton;
+    Button previewExerciseButton;
 
     public WorkoutExerciseViewFragment() {
         // Required empty public constructor
@@ -90,6 +94,7 @@ public class WorkoutExerciseViewFragment extends Fragment {
         pauseButton = view.findViewById(R.id.pauseButton);
         stopButton = view.findViewById(R.id.stopButton);
         resetButton = view.findViewById(R.id.resetButton);
+        previewExerciseButton = view.findViewById(R.id.previewExerciseButton);
         confirmExerciseFinishedButton = view.findViewById(R.id.confirmExerciseFinishedButton);
 
         //dodanie sluchaczy przyciskow
@@ -116,6 +121,36 @@ public class WorkoutExerciseViewFragment extends Fragment {
             Fragment fragment = new WorkoutPlanViewFragment();
             fragment.setArguments(bundle);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack(null).commit();
+        });
+        previewExerciseButton.setOnClickListener(view -> {
+
+            //znalezienie ID tego cwiczenia
+            String exerciseID = "";
+            for(ExerciseModel e:exerciseModels){
+                if(Objects.equals(e.getExerciseName(), exerciseName)){
+                    exerciseID = e.getExercise().getId();
+                }
+            }
+            if(exerciseID.equals("")){
+                Toast.makeText(getContext(), getResources().getString(R.string.brak_podgladu), Toast.LENGTH_SHORT).show();
+            }else{
+                //zatrzymanie stopera
+                isCountdownRunning = false;
+                togglePauseButtonVisual();
+
+                //ustawienie argumentow do widoku cwiczenia
+                Fragment fragment = new ExerciseViewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isShowingPreview", true);
+                bundle.putString("selectedExercise", exerciseName);
+                bundle.putString("exerciseID", exerciseID);
+
+                //przelaczenie widoku na ten fragment
+                fragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.frame_layout, fragment).addToBackStack("showPreview");
+                fragmentTransaction.commit();
+            }
         });
 
         //ustawienia poczatkowe

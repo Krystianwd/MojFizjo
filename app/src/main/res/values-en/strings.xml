@@ -100,5 +100,8 @@
     <string name="pauza">Pause</string>
     <string name="stop">Stop</string>
     <string name="reset">Reset</string>
+    <string name="podglad">Preview</string>
+    <string name="brak_podgladu">No preview provided</string>
+    <string name="powrot_do_treningu">Back to training</string>
 
 </resources>

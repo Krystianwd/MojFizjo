@@ -25,10 +25,20 @@
             android:text="@string/nazwa_cwiczenia"
             android:textSize="24sp" />
 
-        <Space
+        <Button
+            android:id="@+id/previewExerciseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingRight="1dp"
+            android:paddingLeft="1dp"
+            android:layout_weight="1"
+            android:text="@string/podglad"
+            android:textSize="12sp" />
+
     </LinearLayout>
 
     <Space
