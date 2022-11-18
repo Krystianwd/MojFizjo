@@ -49,8 +49,6 @@ public class PlansFragment extends Fragment {
                     .addToBackStack("plan").commit();
         });
         return view;
-
-
     }
 
 }

@@ -115,8 +115,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                             mainActivity.showMenus();
 
                                             //przelaczenie widoku na fragment domowy
-                                            Fragment fragment = new HomeFragment();
-                                            mainActivity.selectedFragment(fragment);
+//                                            Fragment fragment = new HomeFragment();
+//                                            mainActivity.selectedFragment(fragment);
+                                            mainActivity.boottomNavigationview.setSelectedItemId(R.id.home);
                                         }
                                         else {
                                             //niezweryfikowany adres e-mail
@@ -204,8 +205,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                 mainActivity.showMenus();
 
                                 //przelaczenie widoku na fragment domowy
-                                Fragment fragment = new HomeFragment();
-                                mainActivity.selectedFragment(fragment);
+//                                Fragment fragment = new HomeFragment();
+//                                mainActivity.selectedFragment(fragment);
+                                mainActivity.boottomNavigationview.setSelectedItemId(R.id.home);
+
 
                             } else {
                                 // If sign in fails, display a message to the user.

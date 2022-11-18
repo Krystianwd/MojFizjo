@@ -1,31 +1,26 @@
 package com.example.mojfizjo.Models;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlanModel {
 
+    @Getter @Setter
     String planName;
+    @Getter @Setter
     ArrayList<ExerciseModel> exerciseModels;
+    @Getter @Setter
+    Map<String,Boolean> remindDay;
+    @Getter @Setter
+    String remindHour;
 
-    public PlanModel() {
-        //required empty public constructor
-    }
-
-    public PlanModel(String planName, ArrayList<ExerciseModel> exerciseModels) {
-        this.planName = planName;
-        this.exerciseModels = exerciseModels;
-    }
-
-    public String getPlanName() {
-        return planName;
-    }
 
     public boolean hasExercises(){ return !exerciseModels.isEmpty(); }
 
-    public ArrayList<ExerciseModel> getExerciseModel() {
-        return exerciseModels;
-    }
-    public void addExercise(ExerciseModel exerciseModel){
-        this.exerciseModels.add(exerciseModel);
-    }
 }

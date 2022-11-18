@@ -11,12 +11,17 @@ import lombok.AllArgsConstructor;
 public class UserSettings {
 
     @Getter @Setter private String userID;
-    @Getter @Setter private boolean enableNotifications;
-    @Getter @Setter private String notificationTime;
+    @Getter @Setter private boolean notifyAboutWorkout;
+    @Getter @Setter private int notificationHours;
     @Getter @Setter private boolean notifyAboutSteps;
     @Getter @Setter private boolean notifyAboutWater;
     @Getter @Setter private int stepsNumber;
+    @Getter @Setter private int stepsAmount;
+    @Getter @Setter private int waterDaysAmount;
+    @Getter @Setter private int workoutDaysAmount;
     @Getter @Setter private int waterLiters;
     @Getter @Setter private String uID;
+    @Getter @Setter private boolean stepsDone;
+    @Getter @Setter private boolean waterDone;
 
 }

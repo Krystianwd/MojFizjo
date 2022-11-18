@@ -93,13 +93,17 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
 
     @Override
     public void applyText(ArrayList<String> selectedDays, String selectedHour) {
+                Map<String,Boolean> days = new HashMap<>();
+        for (String selectedDay:selectedDays) {
+            days.put(selectedDay,false);
+        }
                 EditText planName = main_view.findViewById(R.id.planNameToAdd);
                 String  planNameString = planName.getText().toString();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> plan = new HashMap<>();
                 plan.put("planName",planNameString);
                 plan.put("exercises",exerciseModels);
-                plan.put("remindDay",selectedDays);
+                plan.put("remindDay",days);
                 plan.put("remindHour",selectedHour);
                 //ustawienie nazwy uzytkownika
                 String uid = "";

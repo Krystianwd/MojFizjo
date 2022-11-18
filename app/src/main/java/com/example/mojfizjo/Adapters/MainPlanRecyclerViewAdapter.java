@@ -56,9 +56,9 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
     public void onBindViewHolder(@NonNull MainPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         holder.planName.setText(planModels.get(position).getPlanName());
-        for(int i=0;i<planModels.get(position).getExerciseModel().size();i++) {
+        for(int i=0;i<planModels.get(position).getExerciseModels().size();i++) {
             TextView textView = new TextView(context);
-            textView.setText(planModels.get(position).getExerciseModel().get(i).getExerciseName());
+            textView.setText(planModels.get(position).getExerciseModels().get(i).getExerciseName());
             holder.exerciseName.addView(textView);
         }
         holder.parentLayout.setOnClickListener(view -> {
@@ -66,7 +66,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             Bundle bundle = new Bundle();
             int getPosition = holder.getAdapterPosition();
             bundle.putInt("position",getPosition);
-            bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModel());
+            bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModels());
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new BrowsePlanExercisesFragment();
             fragment.setArguments(bundle);

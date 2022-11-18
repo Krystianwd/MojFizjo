@@ -50,9 +50,9 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull WorkoutFragmentPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         holder.planName.setText(planModels.get(position).getPlanName());
-        for(int i=0;i<planModels.get(position).getExerciseModel().size();i++) {
+        for(int i=0;i<planModels.get(position).getExerciseModels().size();i++) {
             TextView textView = new TextView(context);
-            textView.setText(planModels.get(position).getExerciseModel().get(i).getExerciseName());
+            textView.setText(planModels.get(position).getExerciseModels().get(i).getExerciseName());
             holder.exerciseName.addView(textView);
         }
         holder.parentLayout.setOnClickListener(view -> {
@@ -64,7 +64,7 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
                 Bundle bundle = new Bundle();
                 bundle.putString("planName", planModel.getPlanName());
                 bundle.putInt("position",getPosition);
-                bundle.putSerializable("exerlist",planModel.getExerciseModel());
+                bundle.putSerializable("exerlist",planModel.getExerciseModels());
                 bundle.putStringArrayList("exercisesFinished", new ArrayList<>());
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 Fragment fragment = new WorkoutPlanViewFragment();

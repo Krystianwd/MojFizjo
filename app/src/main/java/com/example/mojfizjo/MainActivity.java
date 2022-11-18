@@ -29,6 +29,8 @@ import com.example.mojfizjo.Fragment.accountFragment;
 
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -37,18 +39,23 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-    BottomNavigationView boottomNavigationview;
+    public  BottomNavigationView boottomNavigationview;
     FrameLayout frameLayout;
     DrawerLayout drawerLayout;
     //autentykacja
     FirebaseAuth mAuth;
+    public FirebaseUser currentUser;
+    public UserSettings userSettings;
 
     String currentFragment = null;
 
@@ -64,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpPLanModels();
         //String[] mTestArray;
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             return false;
         });
-        boottomNavigationview.setSelectedItemId(R.id.home);
+//        boottomNavigationview.setSelectedItemId(R.id.home);
 
     }
 
@@ -120,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-
+            setUpPLanModels();
             //pokazanie menu
             showMenus();
 
@@ -215,43 +221,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-    public void setUpPLanModels() {
-        //uchwyt do bazy danych z dokumentami Firebase Firestore
+    public void setUserSettings() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("plans")
-                .addSnapshotListener((value, error) -> {
-                    assert value != null;
-                    for (DocumentChange docChange : value.getDocumentChanges()) {
-                        if (docChange.getType() == DocumentChange.Type.ADDED) {
-                            ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-                            ArrayList<HashMap> exerciseModels1 = new ArrayList<>();
-                            HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
-                            String planName = (String) map.get("planName");
-                            exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
-                            Log.d(TAG, "setUpPLanModels: "+planName);
-                            for (int i = 0; i < Objects.requireNonNull(exerciseModels1).size(); i++) {
-                                Log.d(TAG, "setUpPLanModels: " + exerciseModels1.get(0));
-                                String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
-                                Long sets = (Long) exerciseModels1.get(i).get("sets");
-                                DocumentReference exercise = (DocumentReference) exerciseModels1.get(i).get("exercise");
-                                String time = (String) exerciseModels1.get(i).get("time");
-                                assert sets != null;
-                                exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
+        currentUser = mAuth.getCurrentUser();
+        db.collection("user_settings").whereEqualTo("userID", currentUser.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                userSettings = document.toObject(UserSettings.class);
+                                Log.d(TAG, "onComplete: "+userSettings);
+                                boottomNavigationview.setSelectedItemId(R.id.home);
                             }
-
-                            //sprawdzenie id uzytkownika
-                            String planUID = "";
-                            String userUID = "";
-                            if(map.get("userID") != null) planUID = (String)map.get("userID");
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            if (currentUser != null) userUID = currentUser.getUid();
-
-                            //dodanie do listy
-                            if(Objects.equals(planUID, userUID)) planModels.add(new PlanModel(planName, exerciseModels));
                         }
                     }
                 });
+    }
+    public void setUpPLanModels() {
+        //uchwyt do bazy danych z dokumentami Firebase Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("plans").addSnapshotListener((value, error) -> {
+            assert value != null;
+            for (DocumentChange docChange : value.getDocumentChanges()) {
+                if (docChange.getType() == DocumentChange.Type.ADDED) {
+                    ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
+                    Map<String,Boolean> remindDayList;
+                    HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
+                    String planName = (String) map.get("planName");
+                    ArrayList<HashMap> exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
+                    String remindHour = (String) map.get("remindHour");
+                    remindDayList = (Map<String,Boolean>) map.get("remindDay");
+                    for (int i = 0; i < exerciseModels1.size(); i++) {
+                        String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
+                        Long sets = (Long) exerciseModels1.get(i).get("sets");
+                        DocumentReference exercise = (DocumentReference) exerciseModels1.get(i).get("exercise");
+                        String time = (String) exerciseModels1.get(i).get("time");
+                        exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
+                    }
+
+                    //sprawdzenie id uzytkownika
+                    String planUID = "";
+                    String userUID = "";
+                    if (map.get("userID") != null) planUID = (String) map.get("userID");
+                    if (currentUser != null) userUID = currentUser.getUid();
+
+                    //dodanie do listy
+                    if (Objects.equals(planUID, userUID))
+                        planModels.add(new PlanModel(planName, exerciseModels, remindDayList, remindHour));
+                }
+            }
+
+        });
+        setUserSettings();
     }
 
     @SuppressLint("NonConstantResourceId")
