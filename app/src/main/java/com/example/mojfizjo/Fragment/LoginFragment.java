@@ -114,6 +114,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                             //pokazanie menu dolnego i gornego
                                             mainActivity.showMenus();
 
+                                            //inicjalizacja ustawien
+                                            mainActivity.setUserSettings();
+
                                             //przelaczenie widoku na fragment domowy
 //                                            Fragment fragment = new HomeFragment();
 //                                            mainActivity.selectedFragment(fragment);

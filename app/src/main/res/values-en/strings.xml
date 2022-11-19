@@ -6,6 +6,8 @@
     <string name="zapisz">Save</string>
     <string name="anuluj">Cancel</string>
     <string name="potwierdz">Confirm</string>
+    <string name="zatwierdz">Confirm</string>
+    <string name="potwierdz_operacje">Confirm operation</string>
     <string name="jezyk">en</string>
     <string name="caption">caption</string>
 
@@ -57,9 +59,7 @@
     <string name="zmiana_hasla">Change Password</string>
     <string name="usuwanie_konta">Delete Account</string>
 
-
     <string name="osiagniecia">Your achievements</string>
-
     <string name="powiadomienia">Notifications</string>
 
     <string name="kategoria">Category</string>
@@ -103,5 +103,24 @@
     <string name="podglad">Preview</string>
     <string name="brak_podgladu">No preview provided</string>
     <string name="powrot_do_treningu">Back to training</string>
+
+    <string name="trenuj">Start training</string>
+    <string name="oznacz_jako_wykonane">Claim as finished</string>
+
+    <string name="plan_do_wykonania">Plan to do for today:</string>
+    <string name="brak_planow_do_wykonania">You don\'t have any plans to do for today</string>
+    <string name="picie_wody_zaliczone">Hydration goal reached for today!</string>
+    <string name="do_wypicia">You have to drink</string>
+    <string name="litr_wody">liter of water today!</string>
+    <string name="litry_wody">liters of water today!</string>
+    <string name="litrow_wody">liters of water today!</string>
+    <string name="kroki_zaliczone">Steps goal reached for today!</string>
+    <string name="do_zrobienia">Today you have to do</string>
+    <string name="wykonales_w_sumie">In total you have done</string>
+    <string name="kroki">steps!</string>
+    <string name="krokow">steps!</string>
+    <string name="trenujesz">You have been training for</string>
+    <string name="piles_wode">You have stayed hydrated for</string>
+    <string name="dni_pod_rzad">days in a row!</string>
 
 </resources>

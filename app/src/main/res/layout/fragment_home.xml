@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,15 +13,15 @@
         android:fitsSystemWindows="true"
         android:scrollbars="none"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Powiadomienia"
             android:layout_marginTop="60dp"
-            android:textSize="20sp"
-            android:textAlignment="center"
             android:background="@drawable/home_border_style_groups"
-            />
+            android:text="@string/powiadomienia"
+            android:textAlignment="center"
+            android:textSize="20sp" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,18 +38,18 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:textSize="25sp" />
+
         <androidx.appcompat.widget.AppCompatButton
 
             android:id="@+id/home_button_plans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trenuj"
             android:layout_gravity="center"
-            android:backgroundTint="@color/teal_200"
-            android:background="@drawable/button_style_round"
-            android:padding="10dp"
             android:layout_marginBottom="12dp"
-            />
+            android:background="@drawable/button_style_round"
+            android:backgroundTint="@color/teal_200"
+            android:padding="10dp"
+            android:text="@string/trenuj" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -68,17 +67,18 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textSize="25sp" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_water"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Oznacz jako wykonane"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/teal_200"
-                android:background="@drawable/button_style_round"
-                android:padding="10dp"
                 android:layout_marginBottom="12dp"
-                />
+                android:background="@drawable/button_style_round"
+                android:backgroundTint="@color/teal_200"
+                android:padding="10dp"
+                android:text="@string/oznacz_jako_wykonane"
+                tools:ignore="DuplicateSpeakableTextCheck" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -95,58 +95,62 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:textSize="25sp" />
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_steps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Oznacz jako wykonane"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/teal_200"
-                android:background="@drawable/button_style_round"
-                android:padding="10dp"
                 android:layout_marginBottom="12dp"
-                />
+                android:background="@drawable/button_style_round"
+                android:backgroundTint="@color/teal_200"
+                android:padding="10dp"
+                android:text="@string/oznacz_jako_wykonane" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Osiągniecia"
-            android:textSize="20sp"
             android:layout_marginTop="8dp"
-            android:textAlignment="center"
             android:background="@drawable/home_border_style_groups"
-            />
+            android:text="@string/osiagniecia"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/home_textView_workouts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/home_border_style"
             android:padding="30dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Trenujesz 13 dni pod rząd!"
+            android:text="@string/caption"
             android:textSize="25sp" />
+
         <TextView
             android:id="@+id/home_textView_steps_amount"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/home_border_style"
             android:padding="30dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Wykonałeś w sumie 13 tysięcy kroków!"
+            android:text="@string/caption"
             android:textSize="25sp" />
+
         <TextView
             android:id="@+id/home_textView_water_days_amount"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/home_border_style"
             android:padding="30dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Pamietałeś o piciu wody 20 dni pod rząd!"
+            android:text="@string/caption"
             android:textSize="25sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

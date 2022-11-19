@@ -5,6 +5,8 @@
     <string name="zapisz">Zapisz</string>
     <string name="anuluj">Anuluj</string>
     <string name="potwierdz">Potwierdź</string>
+    <string name="zatwierdz">Zatwierdź</string>
+    <string name="potwierdz_operacje">Potwierdź operację</string>
     <string name="jezyk">pl</string>
     <string name="caption">podpis</string>
 
@@ -56,9 +58,7 @@
     <string name="zmiana_hasla">Zmiana hasła</string>
     <string name="usuwanie_konta">Usuwanie konta</string>
 
-
     <string name="osiagniecia">Twoje osiągnięcia</string>
-
     <string name="powiadomienia">Powiadomienia</string>
 
     <string name="kategoria">Kategoria</string>
@@ -102,5 +102,24 @@
     <string name="podglad">Podgląd</string>
     <string name="brak_podgladu">Brak podglądu</string>
     <string name="powrot_do_treningu">Powrót do treningu</string>
+
+    <string name="trenuj">Trenuj</string>
+    <string name="oznacz_jako_wykonane">Oznacz jako wykonane</string>
+
+    <string name="plan_do_wykonania">Masz dzisiaj do wykonania plan:</string>
+    <string name="brak_planow_do_wykonania">Nie masz dzisiaj żadnych planów do wykonania</string>
+    <string name="picie_wody_zaliczone">Picie wody na dzisiaj zaliczone!</string>
+    <string name="do_wypicia">Masz dzisiaj do wypicia</string>
+    <string name="litr_wody">litr wody!</string>
+    <string name="litry_wody">litry wody!</string>
+    <string name="litrow_wody">litrów wody!</string>
+    <string name="kroki_zaliczone">Kroki na dzisiaj zaliczone!</string>
+    <string name="do_zrobienia">Masz dzisiaj do zrobienia</string>
+    <string name="wykonales_w_sumie">Wykonałeś w sumie</string>
+    <string name="kroki">kroki!</string>
+    <string name="krokow">kroków!</string>
+    <string name="trenujesz">Trenujesz</string>
+    <string name="piles_wode">Pamiętałeś o piciu wody</string>
+    <string name="dni_pod_rzad">dni pod rząd!</string>
 
 </resources>

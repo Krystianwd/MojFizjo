@@ -29,8 +29,6 @@ import com.example.mojfizjo.Fragment.accountFragment;
 
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -40,7 +38,6 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,15 +222,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
         db.collection("user_settings").whereEqualTo("userID", currentUser.getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                userSettings = document.toObject(UserSettings.class);
-                                Log.d(TAG, "onComplete: "+userSettings);
-                                boottomNavigationview.setSelectedItemId(R.id.home);
-                            }
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            userSettings = document.toObject(UserSettings.class);
+                            Log.d(TAG, "onComplete: "+userSettings);
+                            boottomNavigationview.setSelectedItemId(R.id.home);
                         }
                     }
                 });
@@ -282,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
-
                 //wylogowanie
                 mAuth.signOut();
 

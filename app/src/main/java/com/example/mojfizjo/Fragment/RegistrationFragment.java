@@ -25,8 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -150,14 +148,19 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                                                                     if(!currentUserSettingsFound){
 
                                                                         //domyslne ustawienia
-                                                                        Map<String, Object> newUserSettings = new HashMap<>();
-                                                                        newUserSettings.put("userID", newUserID);
-                                                                        newUserSettings.put("enableNotifications", false);
-                                                                        newUserSettings.put("notificationsTime", "00:00");
-                                                                        newUserSettings.put("notifyAboutSteps", false);
-                                                                        newUserSettings.put("notifyAboutWater", false);
-                                                                        newUserSettings.put("stepsNumber", 0);
-                                                                        newUserSettings.put("waterLiters", 0);
+                                                                        UserSettings newUserSettings = new UserSettings();
+                                                                        newUserSettings.setUserID(newUserID);
+                                                                        newUserSettings.setNotificationHours(0);
+                                                                        newUserSettings.setNotifyAboutSteps(false);
+                                                                        newUserSettings.setNotifyAboutWater(false);
+                                                                        newUserSettings.setNotifyAboutWorkout(false);
+                                                                        newUserSettings.setStepsAmount(0);
+                                                                        newUserSettings.setStepsDone(false);
+                                                                        newUserSettings.setStepsNumber(0);
+                                                                        newUserSettings.setWaterDaysAmount(0);
+                                                                        newUserSettings.setWaterDone(false);
+                                                                        newUserSettings.setWaterLiters(0);
+                                                                        newUserSettings.setWorkoutDaysAmount(0);
 
                                                                         //dodanie do bd
                                                                         db.collection("user_settings")
