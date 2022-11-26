@@ -213,7 +213,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    private Boolean validateRegistrationInput(){
+    public Boolean validateRegistrationInput(){
 
         //walidacja e-maila
         if (emailText.length()==0){
