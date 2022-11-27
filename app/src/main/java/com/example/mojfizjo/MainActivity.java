@@ -284,7 +284,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 //przelaczenie widoku na fragment logowania
                 Fragment fragment = new LoginFragment();
-                this.selectedFragment(fragment);
+                //this.selectedFragment(fragment);
+                //nie uzywamy funkcji selectedFragment aby nie tworzyc backStacka
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, fragment);
+                fragmentTransaction.commit();
                 break;
             case R.id.nav_change_password:
                     moveToAccountFragment("change_password");
