@@ -7,6 +7,7 @@
     <string name="potwierdz">Potwierdź</string>
     <string name="zatwierdz">Zatwierdź</string>
     <string name="potwierdz_operacje">Potwierdź operację</string>
+    <string name="pomin">Pomiń</string>
     <string name="jezyk">pl</string>
     <string name="caption">podpis</string>
 
@@ -91,6 +92,8 @@
     <string name="dodaj_przypomnienie">Dodaj przypomnienie</string>
     <string name="dodaj_do_planu">Dodaj do planu</string>
     <string name="pustyplan">Plan jest pusty.</string>
+    <string name="dzien">Dzień:</string>
+    <string name="godzina">Godzina:</string>
 
     <string name="cw_wykonane">Ćwiczenie wykonane</string>
     <string name="zakoncz_sesje">Zakończ sesję</string>

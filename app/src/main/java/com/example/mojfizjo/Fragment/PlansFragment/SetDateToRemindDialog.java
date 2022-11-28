@@ -75,7 +75,7 @@ public class SetDateToRemindDialog extends DialogFragment {
 
         builder.setView(dialogLayout)
                 // Set the action buttons
-                .setPositiveButton("Zatwierdz", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.zatwierdz), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the selectedItems results somewhere
@@ -88,13 +88,13 @@ public class SetDateToRemindDialog extends DialogFragment {
                         listener.applyText(selectedDays,selectedHour);
                     }
                 })
-                .setNeutralButton("Pomiń", new DialogInterface.OnClickListener() {
+                .setNeutralButton(getResources().getString(R.string.pomin), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         listener.applyTextSkip();
                     }
                 })
-                .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.anuluj), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         builder.create().dismiss();

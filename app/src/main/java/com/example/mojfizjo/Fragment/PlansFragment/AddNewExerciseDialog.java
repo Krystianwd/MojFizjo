@@ -37,7 +37,7 @@ public class AddNewExerciseDialog extends DialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(dialogLayout)
                 // Add action buttons
-                .setPositiveButton("Zatwierdz", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.zatwierdz), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String sets = editTextSets.getText().toString();
@@ -45,7 +45,7 @@ public class AddNewExerciseDialog extends DialogFragment {
                         listener.applyText(sets,time);
                     }
                 })
-                .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.anuluj), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         builder.create().dismiss();
                     }

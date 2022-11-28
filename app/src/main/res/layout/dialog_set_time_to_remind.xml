@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -25,15 +26,15 @@
             android:textColor="#333333"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <TextView
-        android:background="@color/colorTextIcons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dodaj przypomnienie"
-        android:textAlignment="center"
-        android:textSize="25sp"
+        android:background="@color/colorTextIcons"
         android:padding="14dp"
-        />
+        android:text="@string/dodaj_przypomnienie"
+        android:textAlignment="center"
+        android:textSize="25sp" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,7 +44,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="Dzien: "
+            android:text="@string/dzien"
             android:textSize="20sp" />
 
 <!--        <androidx.appcompat.widget.AppCompatSpinner-->
@@ -63,21 +64,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
         <TextView
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:text="Godzina: "
-            android:textSize="20sp"
+            android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:background="@drawable/dialog_border_style"
-            />
+            android:text="@string/godzina"
+            android:textSize="20sp" />
+
         <androidx.appcompat.widget.AppCompatSpinner
-            android:background="@drawable/dialog_border_style"
+            android:id="@+id/remind_hour"
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/remind_hour"
-            />
+            android:background="@drawable/dialog_border_style"
+            android:contentDescription="@string/godzina"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

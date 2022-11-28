@@ -2,7 +2,7 @@
 <resources>
     <array name="Days">
         <item>poniedziałek</item>
-        <item>storek</item>
+        <item>wtorek</item>
         <item>środa</item>
         <item>czwartek</item>
         <item>piątek</item>

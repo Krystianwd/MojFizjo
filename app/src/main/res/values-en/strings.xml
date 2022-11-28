@@ -8,6 +8,7 @@
     <string name="potwierdz">Confirm</string>
     <string name="zatwierdz">Confirm</string>
     <string name="potwierdz_operacje">Confirm operation</string>
+    <string name="pomin">Skip</string>
     <string name="jezyk">en</string>
     <string name="caption">caption</string>
 
@@ -92,6 +93,8 @@
     <string name="dodaj_przypomnienie">Add notification</string>
     <string name="dodaj_do_planu">Add to plan</string>
     <string name="pustyplan">Plan is empty.</string>
+    <string name="dzien">Day:</string>
+    <string name="godzina">Hour:</string>
 
     <string name="cw_wykonane">Exercise finished</string>
     <string name="zakoncz_sesje">End session</string>
