@@ -2,11 +2,15 @@ package com.example.mojfizjo.Fragment.PlansFragment;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.Matchers.endsWith;
 
 import android.content.Context;
 
@@ -42,6 +46,8 @@ public class testPlansFragment {
     public void PlansFragmentIntegrationTest() throws InterruptedException {
         onView(withId(R.id.plans)).perform(click());
         Thread.sleep(1000);
+        onView(withId(R.id.plans)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.addPlan)).perform(click());
         onView(withId(R.id.planNameToAdd)).perform(typeText("a"));
         onView(withId(R.id.addExerciseToPlan)).perform(click());
@@ -59,11 +65,14 @@ public class testPlansFragment {
         onView(withId(R.id.submitPlan)).perform(click());
         Thread.sleep(2000);
         onView(withText("poniedziałek")).perform(click());
+        onView(withText("sobota")).perform(scrollTo(), click());
         onView(withText(buttonText)).perform(click());
         Espresso.closeSoftKeyboard();
         Thread.sleep(1000);
         onView(withId(R.id.workout)).perform(click());
-        onView(withText("anewPlanTest1")).check(matches(withText("anewPlanTest1")));
+        onView(withText("anewPlanTest")).check(matches(isDisplayed()));
+        onView(withId(R.id.home)).perform(click());
+        onView(withId(R.id.home_textView_plans)).check(matches(withText(endsWith("anewPlanTest "))));
     }
 
 }
