@@ -8,7 +8,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Fragment.HomeFragment"
+        tools:context=".Fragment.HomeFragment.HomeFragment"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         android:scrollbars="none"

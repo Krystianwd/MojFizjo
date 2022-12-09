@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.mojfizjo.Adapters.MainPlanRecyclerViewAdapter;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
-import com.example.mojfizjo.Fragment.HomeFragment;
+import com.example.mojfizjo.Fragment.HomeFragment.HomeFragment;
 import com.example.mojfizjo.Fragment.LoginFragment;
 import com.example.mojfizjo.Fragment.PlansFragment.PlansFragment;
 import com.example.mojfizjo.Fragment.WorkoutFragment;
@@ -46,7 +46,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-    public  BottomNavigationView boottomNavigationview;
+    public BottomNavigationView boottomNavigationview;
     FrameLayout frameLayout;
     DrawerLayout drawerLayout;
     //autentykacja
@@ -144,11 +144,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onSaveInstanceState(outState);
         outState.putString("currentFragment", currentFragment);
     }
+
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         currentFragment = savedInstanceState.getString("currentFragment");
-        switch(currentFragment){
+        switch (currentFragment) {
             case "home":
                 HomeFragment homeFragment = new HomeFragment();
                 selectedFragment(homeFragment);
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
     public void setUserSettings() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -226,28 +228,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             userSettings = document.toObject(UserSettings.class);
-                            Log.d(TAG, "onComplete: "+userSettings);
+                            Log.d(TAG, "onComplete: " + userSettings);
                             boottomNavigationview.setSelectedItemId(R.id.home);
                         }
                     }
                 });
     }
+
     public void setUpPLanModels() {
         //uchwyt do bazy danych z dokumentami Firebase Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        planModels.clear();
         db.collection("plans").addSnapshotListener((value, error) -> {
             assert value != null;
             for (DocumentChange docChange : value.getDocumentChanges()) {
                 if (docChange.getType() == DocumentChange.Type.ADDED) {
                     ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
-                    Map<String,Boolean> remindDayList;
+                    Map<String, Boolean> remindDayList;
                     String planId = docChange.getDocument().getId();
                     HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                     String planName = (String) map.get("planName");
                     ArrayList<HashMap> exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
                     String remindHour = (String) map.get("remindHour");
-                    remindDayList = (Map<String,Boolean>) map.get("remindDay");
-                    if(exerciseModels1 != null){
+                    remindDayList = (Map<String, Boolean>) map.get("remindDay");
+                    if (exerciseModels1 != null) {
                         for (int i = 0; i < exerciseModels1.size(); i++) {
                             String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
                             Long sets = (Long) exerciseModels1.get(i).get("sets");
@@ -276,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 //wylogowanie
@@ -294,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.commit();
                 break;
             case R.id.nav_change_password:
-                    moveToAccountFragment("change_password");
+                moveToAccountFragment("change_password");
                 break;
             case R.id.nav_delete_acc:
                 moveToAccountFragment("delete_account");
@@ -305,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void moveToAccountFragment(String mode){
+    public void moveToAccountFragment(String mode) {
         drawerLayout.closeDrawer(GravityCompat.START);
         accountFragment accountFragment = new accountFragment();
 

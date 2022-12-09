@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojfizjo.Adapters.WorkoutPlanViewFragmentRecyclerViewAdapter;
+import com.example.mojfizjo.Fragment.HomeFragment.HomeFragment;
 import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModel;

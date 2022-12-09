@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojfizjo.Adapters.BrowsePlanExercisesRecyclerViewAdapter;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
+import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModelDB;
 import com.example.mojfizjo.R;
@@ -146,7 +147,7 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
                                     .addOnSuccessListener(unused -> {
                                         Toast.makeText(requireActivity(),"Zaktualizowano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
                                         exerciseModels.clear();
-                                        adapter.notifyDataSetChanged();
+                                        ((MainActivity)getActivity()).setUpPLanModels();
                                     });
 
                         } else {

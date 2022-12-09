@@ -1,5 +1,7 @@
 package com.example.mojfizjo;
 
+import java.util.Date;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +25,9 @@ public class UserSettings {
     @Getter @Setter private String uID;
     @Getter @Setter private boolean stepsDone;
     @Getter @Setter private boolean waterDone;
+    @Getter @Setter private boolean workoutDone;
+    @Getter @Setter private boolean workoutInc;
+    @Getter @Setter private Date lastUpdate;
+
 
 }
