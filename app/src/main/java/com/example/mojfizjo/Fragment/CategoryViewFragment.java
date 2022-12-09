@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mojfizjo.Exercise;
+import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
 import com.example.mojfizjo.Photo_video;
 import com.example.mojfizjo.Star;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -54,6 +56,8 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
     String receivedCategoryName;
     String receivedCategoryID;
+
+    boolean receivedIsEditingExistingPlan = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -349,6 +353,19 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
             if(receivedIsAddingToPlan){
                 bundle.putBoolean("isAddingToPlan",true);
                 Log.d(TAG, "onClick: Passed boolean" +true);
+
+                //tryb edycji istniejacego planu
+                receivedIsEditingExistingPlan = getArguments().getBoolean("isEditingExistingPlan");
+                if(receivedIsEditingExistingPlan){
+                    String receivedPlanId = getArguments().getString("receivedPlanId");
+                    String receivedPlanName = getArguments().getString("receivedPlanName");
+                    ArrayList<ExerciseModel> exerciseModels = (ArrayList<ExerciseModel>) getArguments().getSerializable("exerlist");
+                    Log.d(TAG, String.valueOf(exerciseModels));
+                    bundle.putSerializable("exerlist", exerciseModels);
+                    bundle.putBoolean("isEditingExistingPlan", true);
+                    bundle.putString("receivedPlanId", receivedPlanId);
+                    bundle.putString("receivedPlanName", receivedPlanName);
+                }
             }
             bundle.putString("selectedExercise", selectedButton);
             bundle.putString("exerciseID", exerciseID);
@@ -367,16 +384,30 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
         Bundle bundle = new Bundle();
         Fragment fragment = new CategoryViewFragment();
 
-        assert getArguments() != null;
-        boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
+        if (getArguments() != null){
+            boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
 
-        bundle.putString("selectedCategory", receivedCategoryName);
-        bundle.putString("categoryID", receivedCategoryID);
-        bundle.putBoolean("isAddingToPlan", receivedIsAddingToPlan);
-        fragment.setArguments(bundle);
+            bundle.putString("selectedCategory", receivedCategoryName);
+            bundle.putString("categoryID", receivedCategoryID);
+            bundle.putBoolean("isAddingToPlan", receivedIsAddingToPlan);
 
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "ExerciseViewFragment").addToBackStack("addExercise");
-        fragmentTransaction.commit();
+            //tryb edycji istniejacego planu
+            receivedIsEditingExistingPlan = getArguments().getBoolean("isEditingExistingPlan");
+            if(receivedIsEditingExistingPlan){
+                String receivedPlanId = getArguments().getString("receivedPlanId");
+                String receivedPlanName = getArguments().getString("receivedPlanName");
+                ArrayList<ExerciseModel> exercises = (ArrayList<ExerciseModel>) getArguments().getSerializable("exerlist");
+                bundle.putSerializable("exerlist", exercises);
+                bundle.putBoolean("isEditingExistingPlan", true);
+                bundle.putString("receivedPlanId", receivedPlanId);
+                bundle.putString("receivedPlanName", receivedPlanName);
+            }
+
+            fragment.setArguments(bundle);
+
+            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "ExerciseViewFragment").addToBackStack("addExercise");
+            fragmentTransaction.commit();
+        }
     }
 }

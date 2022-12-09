@@ -41,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Vector;
@@ -53,6 +54,10 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
     public ExerciseViewFragment() {
         // Required empty public constructor
     }
+
+    Boolean isEditingExistingPlan = false;
+    String receivedPlanId ="";
+    String receivedPlanName="";
 
     View view;
 
@@ -88,6 +93,14 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                 AddNewExerciseDialog addNewExerciseDialog = new AddNewExerciseDialog();
                 addNewExerciseDialog.show(getParentFragmentManager(),"addNewExerciseDialog");
             });
+
+            //tryb edycji planu
+            isEditingExistingPlan = getArguments().getBoolean("isEditingExistingPlan");
+            if(isEditingExistingPlan){
+                receivedPlanId = getArguments().getString("receivedPlanId");
+                receivedPlanName = getArguments().getString("receivedPlanName");
+                Log.d(TAG, receivedPlanName);
+            }
         }
 
         //wyswietlanie podgladu cwiczenia
@@ -284,20 +297,33 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
     public void applyText(String sets, String time) {
         //stworzenie instancji fragmentu planow
         Fragment fragment = getParentFragmentManager().findFragmentByTag("AddPlanFragment");
-        //przekazanie parametrow do tej instancji
-        Bundle bundle = new Bundle();
-        ExerciseModel exerciseModel = new ExerciseModel(name,reference,Integer.parseInt(sets),time);
-        bundle.putBoolean("isAddingToPlan",true);
-        bundle.putSerializable("exercise",exerciseModel);
-        Log.d(TAG, "applyText: "+bundle);
+        if(fragment != null){
+            //przekazanie parametrow do tej instancji
+            Bundle bundle = new Bundle();
+            ExerciseModel exerciseModel = new ExerciseModel(name,reference,Integer.parseInt(sets),time);
+            bundle.putBoolean("isAddingToPlan",true);
+            bundle.putSerializable("exercise",exerciseModel);
+            Log.d(TAG, "applyText: "+bundle);
 
-        assert fragment != null;
-        fragment.setArguments(bundle);
+            //tryb edycji planu
+            if(isEditingExistingPlan){
+                ArrayList<ExerciseModel> exerciseModels = (ArrayList<ExerciseModel>) getArguments().getSerializable("exerlist");
+                bundle.putSerializable("exerlist", exerciseModels);
+                bundle.putBoolean("isEditingExistingPlan", true);
+                bundle.putString("receivedPlanId", receivedPlanId);
+                bundle.putString("receivedPlanName", receivedPlanName);
+                Log.e(TAG, receivedPlanName + receivedPlanId + exerciseModels);
+            }
 
-        //przelaczenie widoku na ten fragment
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        requireActivity().getSupportFragmentManager().popBackStack("addExercise",POP_BACK_STACK_INCLUSIVE);
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "AddPlanFragment");
-        fragmentTransaction.commit();
+            fragment.setArguments(bundle);
+
+            //przelaczenie widoku na ten fragment
+            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            requireActivity().getSupportFragmentManager().popBackStack("addExercise",POP_BACK_STACK_INCLUSIVE);
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "AddPlanFragment");
+            fragmentTransaction.commit();
+        } else{
+            Log.e(TAG,"???");
+        }
     }
 }

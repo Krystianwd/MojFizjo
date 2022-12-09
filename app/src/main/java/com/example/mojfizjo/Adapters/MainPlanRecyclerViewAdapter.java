@@ -1,5 +1,6 @@
 package com.example.mojfizjo.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.mojfizjo.Fragment.PlansFragment.AddNewPlanFragment;
 import com.example.mojfizjo.Fragment.PlansFragment.BrowsePlanExercisesFragment;
 import com.example.mojfizjo.Models.PlanModel;
 import com.example.mojfizjo.R;
@@ -52,6 +55,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
         return new MainPlanRecyclerViewAdapter.MyMainPlanViewHolder(view);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onBindViewHolder(@NonNull MainPlanRecyclerViewAdapter.MyMainPlanViewHolder holder, int position) {
         holder.setIsRecyclable(false);
@@ -64,13 +68,54 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
         holder.parentLayout.setOnClickListener(view -> {
             Log.d(TAG, String.valueOf(view.getId()));
             Bundle bundle = new Bundle();
-            int getPosition = holder.getAdapterPosition();
+            int getPosition = holder.getBindingAdapterPosition();
             bundle.putInt("position",getPosition);
             bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModels());
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new BrowsePlanExercisesFragment();
             fragment.setArguments(bundle);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack("Browse").commit();
+        });
+        holder.parentLayout.setOnLongClickListener(view -> {
+            Log.d(TAG, String.valueOf(view.getId()));
+
+            //wyswietlenie wyskakujacego menu
+            PopupMenu popupMenu = new PopupMenu(context, holder.parentLayout);
+            popupMenu.getMenuInflater().inflate(R.menu.plan_crud_popup_menu, popupMenu.getMenu());
+            popupMenu.setOnDismissListener(popupMenu1 -> Log.d(TAG, "dismiss"));
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                int id =  menuItem.getItemId();
+                switch(id){
+
+                        //przycisk edycji planu
+                    case R.id.editPlan:
+                        Log.d(TAG, "edit");
+                        Bundle bundle = new Bundle();
+                        bundle.putBoolean("isEditingExistingPlan",true);
+                        int getPosition = holder.getBindingAdapterPosition();
+                        bundle.putInt("position",getPosition);
+                        bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModels());
+                        bundle.putString("receivedPlanId", planModels.get(getPosition).getPlanId());
+                        bundle.putString("receivedPlanName", planModels.get(getPosition).getPlanName());
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        Fragment fragment = new AddNewPlanFragment();
+                        fragment.setArguments(bundle);
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment, "AddPlanFragment").addToBackStack("Browse").commit();
+                        break;
+
+                        //przycisk usuwania planu
+                    case R.id.deletePlan:
+                        Log.e(TAG, "delete");
+                        break;
+
+                    default:
+                        Log.e(TAG, "invalid item ID");
+                        return false;
+                }
+                return true;
+            });
+            popupMenu.show();
+            return true;
         });
     }
 

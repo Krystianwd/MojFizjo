@@ -10,6 +10,7 @@
     <string name="pomin">Pomiń</string>
     <string name="jezyk">pl</string>
     <string name="caption">podpis</string>
+    <string name="wyszukaj">Wyszukaj</string>
 
     <string name="dom">Dom</string>
     <string name="plany">Plany</string>
@@ -46,10 +47,13 @@
     <string name="niezweryfikowany_mail" tools:ignore="Typos">Adres e-mail nie jest zweryfikowany. Kliknij link w wiadomości wysłanej na ten adres.</string>
     <string name="nieznany_mail" tools:ignore="Typos">Adres e-mail nie znaleziony w bazie danych.</string>
 
+    <string name="personalizacja">Personalizacja</string>
+    <string name="plan_tygodniowy">Plan Tygodniowy</string>
     <string name="twoje_konto">Twoje Konto</string>
     <string name="wyloguj">Wyloguj się</string>
     <string name="zmien_haslo">Zmień hasło</string>
     <string name="usun_konto">Usuń konto</string>
+
     <string name="usun_konto2">Potwierdź i usuń konto na zawsze (nie można tego cofnąć!!!)</string>
     <string name="nowe_haslo" tools:ignore="Typos">Nowe hasło</string>
     <string name="odswierz_logowanie">To niebezpieczne działanie wymaga ponowienia logowania. Proszę podać aktualny e-mail i hasło.</string>
@@ -67,6 +71,8 @@
     <string name="kategorie">Wybierz kategorię ćwiczeń</string>
 
     <string name="nowyplan">Nowy Plan</string>
+    <string name="edytuj_plan">Edytuj Plan</string>
+    <string name="usun_plan">Usuń Plan</string>
     <string name="wybierzplan">Wybierz plan do treningu</string>
     <string name="nazwa_planu">Wpisz nazwę planu:</string>
 

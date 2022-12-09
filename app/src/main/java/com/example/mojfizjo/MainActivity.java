@@ -241,17 +241,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (docChange.getType() == DocumentChange.Type.ADDED) {
                     ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
                     Map<String,Boolean> remindDayList;
+                    String planId = docChange.getDocument().getId();
                     HashMap<String, Object> map = (HashMap<String, Object>) docChange.getDocument().getData();
                     String planName = (String) map.get("planName");
                     ArrayList<HashMap> exerciseModels1 = (ArrayList<HashMap>) map.get("exercises");
                     String remindHour = (String) map.get("remindHour");
                     remindDayList = (Map<String,Boolean>) map.get("remindDay");
-                    for (int i = 0; i < exerciseModels1.size(); i++) {
-                        String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
-                        Long sets = (Long) exerciseModels1.get(i).get("sets");
-                        DocumentReference exercise = (DocumentReference) exerciseModels1.get(i).get("exercise");
-                        String time = (String) exerciseModels1.get(i).get("time");
-                        exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
+                    if(exerciseModels1 != null){
+                        for (int i = 0; i < exerciseModels1.size(); i++) {
+                            String exerciseName = (String) exerciseModels1.get(i).get("exerciseName");
+                            Long sets = (Long) exerciseModels1.get(i).get("sets");
+                            DocumentReference exercise = (DocumentReference) exerciseModels1.get(i).get("exercise");
+                            String time = (String) exerciseModels1.get(i).get("time");
+                            exerciseModels.add(new ExerciseModel(exerciseName, exercise, sets.intValue(), time));
+                        }
                     }
 
                     //sprawdzenie id uzytkownika
@@ -262,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //dodanie do listy
                     if (Objects.equals(planUID, userUID))
-                        planModels.add(new PlanModel(planName, exerciseModels, remindDayList, remindHour));
+                        planModels.add(new PlanModel(planId, planName, exerciseModels, remindDayList, remindHour));
                 }
             }
 

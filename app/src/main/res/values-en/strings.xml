@@ -11,6 +11,7 @@
     <string name="pomin">Skip</string>
     <string name="jezyk">en</string>
     <string name="caption">caption</string>
+    <string name="wyszukaj">Search</string>
 
     <string name="dom">Home</string>
     <string name="plany">Plans</string>
@@ -47,10 +48,13 @@
     <string name="niezweryfikowany_mail">Unverified e-mail address. Click the link on the mail sent to that address.</string>
     <string name="nieznany_mail">Unidentified e-mail address.</string>
 
+    <string name="personalizacja">Personalization</string>
+    <string name="plan_tygodniowy">Weekly Plan</string>
     <string name="twoje_konto">Your Account</string>
     <string name="wyloguj">Log Out</string>
     <string name="zmien_haslo">Change Password</string>
     <string name="usun_konto">Delete Account</string>
+
     <string name="usun_konto2">Confirm and delete account permanently (cannot be undone!!!)</string>
     <string name="nowe_haslo">New password</string>
     <string name="odswierz_logowanie">This security-sensitive action requires re-authentication. Please retype your current e-mail and password.</string>
@@ -68,6 +72,8 @@
     <string name="kategorie">Select exercise category</string>
 
     <string name="nowyplan">New Plan</string>
+    <string name="edytuj_plan">Edit Plan</string>
+    <string name="usun_plan">Delete Plan</string>
     <string name="wybierzplan">Select exercise plan</string>
     <string name="nazwa_planu">Plan name:</string>
 

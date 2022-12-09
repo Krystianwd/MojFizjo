@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Notification"
         android:id="@+id/notification"
         android:icon="@drawable/ic_baseline_notifications_24"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/powiadomienia"
+        app:showAsAction="ifRoom" />
     <item
-        android:title="Search"
         android:id="@+id/search"
         android:icon="@drawable/ic_baseline_search_24"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/wyszukaj"
+        app:showAsAction="ifRoom" />
     <item
-        android:title="Account"
         android:id="@+id/account"
         android:icon="@drawable/ic_baseline_account_circle_24"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/twoje_konto"
+        app:showAsAction="ifRoom" />
 
 </menu>

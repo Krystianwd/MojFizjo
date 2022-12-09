@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mojfizjo.Category;
+import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
 
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 
 
 public class ExercisesFragment extends Fragment implements View.OnClickListener{
@@ -39,6 +41,8 @@ public class ExercisesFragment extends Fragment implements View.OnClickListener{
     }
 
     View view;
+
+    boolean receivedIsEditingExistingPlan = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,12 +136,31 @@ public class ExercisesFragment extends Fragment implements View.OnClickListener{
         Fragment fragment = new CategoryViewFragment();
         //przekazanie parametru z nazwa przycisku i ID kategorii do tej instancji
         Bundle bundle = new Bundle();
-        try {
-            Boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
-            bundle.putBoolean("isAddingToPlan",receivedIsAddingToPlan);
-            Log.d(TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
+
+        if(getArguments() != null){
+            try {
+                boolean receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
+                bundle.putBoolean("isAddingToPlan",receivedIsAddingToPlan);
+                Log.d(TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
+
+                //tryb edycji istniejacego planu
+                receivedIsEditingExistingPlan = getArguments().getBoolean("isEditingExistingPlan");
+                if(receivedIsEditingExistingPlan){
+                    String receivedPlanId = getArguments().getString("receivedPlanId");
+                    String receivedPlanName = getArguments().getString("receivedPlanName");
+                    ArrayList<ExerciseModel> exerciseModels = (ArrayList<ExerciseModel>) getArguments().getSerializable("exerlist");
+                    Log.d(TAG, String.valueOf(exerciseModels));
+                    bundle.putSerializable("exerlist", exerciseModels);
+                    bundle.putBoolean("isEditingExistingPlan", true);
+                    bundle.putString("receivedPlanId", receivedPlanId);
+                    bundle.putString("receivedPlanName", receivedPlanName);
+                }
+            }
+            catch (Exception e){
+                Log.e(TAG, e.getMessage());
+            }
         }
-        catch (Exception e){}
+
         bundle.putString("selectedCategory", selectedButton);
         bundle.putString("categoryID", categoryID);
         fragment.setArguments(bundle);

@@ -9,19 +9,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlanModel {
+public class PlanModelDB {
 
     @Getter @Setter
     String planId;
     @Getter @Setter
     String planName;
     @Getter @Setter
-    ArrayList<ExerciseModel> exerciseModels;
+    ArrayList<ExerciseModel> exercises;
     @Getter @Setter
     Map<String,Boolean> remindDay;
     @Getter @Setter
     String remindHour;
-
-    public boolean hasExercises(){ return !exerciseModels.isEmpty(); }
+    @Getter @Setter
+    String userID;
 
 }
