@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,8 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojfizjo.Fragment.PlansFragment.AddNewPlanFragment;
 import com.example.mojfizjo.Fragment.PlansFragment.BrowsePlanExercisesFragment;
+import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.Models.PlanModel;
 import com.example.mojfizjo.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -85,6 +89,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             popupMenu.setOnDismissListener(popupMenu1 -> Log.d(TAG, "dismiss"));
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 int id =  menuItem.getItemId();
+                int getPosition = holder.getBindingAdapterPosition();
                 switch(id){
 
                         //przycisk edycji planu
@@ -92,7 +97,6 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
                         Log.d(TAG, "edit");
                         Bundle bundle = new Bundle();
                         bundle.putBoolean("isEditingExistingPlan",true);
-                        int getPosition = holder.getBindingAdapterPosition();
                         bundle.putInt("position",getPosition);
                         bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModels());
                         bundle.putString("receivedPlanId", planModels.get(getPosition).getPlanId());
@@ -105,7 +109,25 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
 
                         //przycisk usuwania planu
                     case R.id.deletePlan:
-                        Log.e(TAG, "delete");
+                        Log.d(TAG, "delete");
+                        String planId = planModels.get(getPosition).getPlanId();
+                        String planName = planModels.get(getPosition).getPlanName();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        DocumentReference planToDelete = db.collection("plans").document(planId);
+                        planToDelete.get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                planToDelete.delete()
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                            Context context = view.getContext();
+                                            Toast.makeText(context,context.getResources().getString(R.string.usunieto_plan) + " " + planName, Toast.LENGTH_SHORT).show();
+                                            ((MainActivity) context).setUpPLanModels();
+                                        })
+                                        .addOnFailureListener(e -> Log.w(TAG, "Error deleting document", e));
+                            } else {
+                                Log.e(TAG, "get failed with ", task.getException());
+                            }
+                        });
                         break;
 
                     default:

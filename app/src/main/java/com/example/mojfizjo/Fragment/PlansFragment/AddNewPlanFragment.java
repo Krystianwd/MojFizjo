@@ -145,9 +145,9 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
                             editedPlan.set(receivedPlanModel)
                                     .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie mozna zaktualizowac planu"))
                                     .addOnSuccessListener(unused -> {
-                                        Toast.makeText(requireActivity(),"Zaktualizowano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(requireActivity(),getResources().getString(R.string.zaktualizowano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
                                         exerciseModels.clear();
-                                        ((MainActivity)getActivity()).setUpPLanModels();
+                                        ((MainActivity) requireActivity()).setUpPLanModels();
                                     });
 
                         } else {
@@ -193,7 +193,7 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
                         .add(plan)
                         .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie dodano nowy plan"))
                         .addOnSuccessListener(documentReference -> {
-                            Toast.makeText(requireActivity(),"Dodano plan o nazwie "+planNameString, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(),getResources().getString(R.string.dodano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
                             exerciseModels.clear();
                             adapter.notifyDataSetChanged();
                         });

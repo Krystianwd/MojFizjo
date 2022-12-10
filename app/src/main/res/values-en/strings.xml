@@ -76,6 +76,9 @@
     <string name="usun_plan">Delete Plan</string>
     <string name="wybierzplan">Select exercise plan</string>
     <string name="nazwa_planu">Plan name:</string>
+    <string name="dodano_plan">Added plan</string>
+    <string name="zaktualizowano_plan">Updated plan</string>
+    <string name="usunieto_plan">Deleted plan</string>
 
     <string name="cwiczenie">Exercise</string>
     <string name="nazwa_cwiczenia">Exercise name:</string>

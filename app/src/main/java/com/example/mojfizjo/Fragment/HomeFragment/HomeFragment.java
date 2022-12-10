@@ -58,7 +58,9 @@ public class HomeFragment extends Fragment {
         assert mainActivity != null;
         planModels = mainActivity.planModels;
         userSettings = mainActivity.userSettings;
-        dbCalendar.setTime(userSettings.getLastUpdate());
+        Date lastUpdate = userSettings.getLastUpdate();
+        if(lastUpdate == null) lastUpdate = Calendar.getInstance().getTime();
+        dbCalendar.setTime(lastUpdate);
 
 
         // Inflate the layout for this fragment
@@ -172,7 +174,7 @@ public class HomeFragment extends Fragment {
                                         userSettings.setWorkoutDone(false);
                                         userSettings.setWorkoutInc(false);
                                         userSettings.setStepsDone(false);
-                                        userSettings.setLastUpdate(new Date());
+                                        userSettings.setLastUpdate(Calendar.getInstance().getTime());
                                         try {
                                             setTextViewWater();
                                             setTextViewSteps();
