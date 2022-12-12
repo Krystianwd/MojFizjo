@@ -24,6 +24,7 @@ import com.example.mojfizjo.Fragment.ExercisesFragment;
 import com.example.mojfizjo.Fragment.HomeFragment.HomeFragment;
 import com.example.mojfizjo.Fragment.LoginFragment;
 import com.example.mojfizjo.Fragment.PlansFragment.PlansFragment;
+import com.example.mojfizjo.Fragment.PlansFragment.SetDateToRemindDialog;
 import com.example.mojfizjo.Fragment.WorkoutFragment;
 import com.example.mojfizjo.Fragment.accountFragment;
 
@@ -281,6 +282,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_notification:
+                SetUpNotificationsDialog setUpNotificationsDialog = new SetUpNotificationsDialog();
+                setUpNotificationsDialog.show(getSupportFragmentManager(), "setUpNotificationsDialog");
+                break;
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 //wylogowanie

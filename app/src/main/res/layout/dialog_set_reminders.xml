@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorTextIcons"
+        android:gravity="center"
+        android:padding="15dp"
+        >
+        <ImageView
+            android:src="@drawable/ic_baseline_healing_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:contentDescription="@string/app_name" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#333333"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextIcons"
+        android:padding="14dp"
+        android:text="Podaj ile godzin przed treningiem chcesz otrzymywać przypomnenia"
+        android:textAlignment="center"
+        android:textSize="25sp" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/remind_hour_before_training"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_border_style"
+            android:contentDescription="@string/godzina"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>
