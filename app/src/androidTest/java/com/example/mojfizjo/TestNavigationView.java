@@ -57,5 +57,9 @@ public class TestNavigationView {
         onView(withId(R.id.remind_hour_before_training)).check(matches(withSpinnerText(containsString("07:00"))));
         onView(withText("Zatwierdź")).perform(click());
     }
-
+    @Test
+    public void whenClickedWeeklyPlanButton_thenOpenDialog(){
+        onView(withId(R.id.nav_week_plan)).perform(click());
+        onView(withText("Mój Fizjo")).check(matches(isDisplayed()));
+    }
 }
