@@ -282,6 +282,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_week_plan:
+                ShowWeeklyPlanDialog showWeeklyPlanDialog = new ShowWeeklyPlanDialog();
+                showWeeklyPlanDialog.show(getSupportFragmentManager(),"showWeeklyPlanDialog");
             case R.id.nav_notification:
                 SetUpNotificationsDialog setUpNotificationsDialog = new SetUpNotificationsDialog();
                 setUpNotificationsDialog.show(getSupportFragmentManager(), "setUpNotificationsDialog");
