@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -36,14 +38,25 @@ public class SetUpNotificationsDialog extends DialogFragment {
         View dialogLayout = inflater.inflate(R.layout.dialog_set_reminders, null);
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
+        Spinner spinnerHours = dialogLayout.findViewById(R.id.remind_hour_before_training);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterHours = ArrayAdapter.createFromResource(requireActivity(),
+                R.array.Hours, R.layout.spinner_select_day);
+
+        // Specify the layout to use when the list of choices appears
+        adapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerHours.setAdapter(adapterHours);
+        // Set the dialog title
         builder.setView(dialogLayout)
                 // Add action buttons
                 .setPositiveButton(getResources().getString(R.string.zatwierdz), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String sets = editTextSets.getText().toString();
-                        String time = editTextTime.getText().toString();
-                        listener.applyText(sets,time);
+//                        String sets = editTextSets.getText().toString();
+//                        String time = editTextTime.getText().toString();
+//                        listener.applyText(sets,time);
+                        builder.create().dismiss();
                     }
                 })
                 .setNegativeButton(getResources().getString(R.string.anuluj), new DialogInterface.OnClickListener() {
