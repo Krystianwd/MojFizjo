@@ -1,11 +1,21 @@
 package com.example.mojfizjo;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 import android.content.Context;
 
@@ -37,6 +47,19 @@ public class TestNavigationView {
     @Test
     public void whenClickedRemindersButton_thenOpenDialog(){
         onView(withId(R.id.nav_notification)).perform(click());
+        onView(withText("Mój Fizjo")).check(matches(isDisplayed()));
+    }
+    @Test
+    public void givenRemindHour_whenClickedApply_thenCloseDialog(){
+        onView(withId(R.id.nav_notification)).perform(click());
+        onView(withId(R.id.remind_hour_before_training)).perform(click());
+        onData(allOf(is(instanceOf(String.class)))).inRoot(isPlatformPopup()).atPosition(7).perform(click());
+        onView(withId(R.id.remind_hour_before_training)).check(matches(withSpinnerText(containsString("07:00"))));
+        onView(withText("Zatwierdź")).perform(click());
+    }
+    @Test
+    public void whenClickedWeeklyPlanButton_thenOpenDialog(){
+        onView(withId(R.id.nav_week_plan)).perform(click());
         onView(withText("Mój Fizjo")).check(matches(isDisplayed()));
     }
 }
