@@ -161,7 +161,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                             String displayedExerciseDuration = getResources().getString(R.string.czas_trwania) + duration + getResources().getString(R.string.sekund);
                             generated_exercise_time.setText(displayedExerciseDuration);
                             generated_exercise_time.setTextColor(Color.parseColor("#A1887F"));
-                            generated_exercise_time.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                            generated_exercise_time.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                             exerciseViewLayout.addView(generated_exercise_time);
 
                             //dodanie naglowka opisu
@@ -171,7 +171,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                             generated_exercise_descriptionHeader.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
                             generated_exercise_descriptionHeader.setText(getResources().getString(R.string.opis));
                             generated_exercise_descriptionHeader.setTextColor(Color.parseColor("#A1887F"));
-                            generated_exercise_descriptionHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                            generated_exercise_descriptionHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                             exerciseViewLayout.addView(generated_exercise_descriptionHeader);
 
                             //dodanie opisu
@@ -181,7 +181,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                             generated_exercise_description.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
                             generated_exercise_description.setText(content);
                             generated_exercise_description.setTextColor(Color.parseColor("#000000"));
-                            generated_exercise_description.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                            generated_exercise_description.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                             exerciseViewLayout.addView(generated_exercise_description);
 
                             //dodanie naglowka zdjec i filmow
@@ -191,7 +191,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                             generated_exercise_imagesHeader.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
                             generated_exercise_imagesHeader.setText(getResources().getString(R.string.zdjecia_filmy));
                             generated_exercise_imagesHeader.setTextColor(Color.parseColor("#A1887F"));
-                            generated_exercise_imagesHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                            generated_exercise_imagesHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                             exerciseViewLayout.addView(generated_exercise_imagesHeader);
 
 

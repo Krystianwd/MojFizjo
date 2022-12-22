@@ -71,6 +71,7 @@
     <string name="kategoria_id">Category ID</string>
     <string name="kategorie">Select exercise category</string>
 
+    <string name="twojeplany">Your Plans</string>
     <string name="nowyplan">New Plan</string>
     <string name="edytuj_plan">Edit Plan</string>
     <string name="usun_plan">Delete Plan</string>
@@ -134,5 +135,13 @@
     <string name="trenujesz">You have been training for</string>
     <string name="piles_wode">You have stayed hydrated for</string>
     <string name="dni_pod_rzad">days in a row!</string>
+
+    <string name="poniedzialek">Monday</string>
+    <string name="wtorek">Tuesday</string>
+    <string name="sroda">Wednesday</string>
+    <string name="czwartek">Thursday</string>
+    <string name="piatek">Friday</string>
+    <string name="sobota">Saturday</string>
+    <string name="niedziela">Sunday</string>
 
 </resources>

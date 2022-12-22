@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="Days">
-        <item>poniedziałek</item>
-        <item>wtorek</item>
-        <item>środa</item>
-        <item>czwartek</item>
-        <item>piątek</item>
-        <item>sobota</item>
-        <item>niedziela</item>
+        <item>@string/poniedzialek</item>
+        <item>@string/wtorek</item>
+        <item>@string/sroda</item>
+        <item>@string/czwartek</item>
+        <item>@string/piatek</item>
+        <item>@string/sobota</item>
+        <item>@string/niedziela</item>
     </array>
     <array name="Hours">
         <item>00:00</item>

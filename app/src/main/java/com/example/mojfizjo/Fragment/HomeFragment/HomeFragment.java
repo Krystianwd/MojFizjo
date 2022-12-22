@@ -4,6 +4,7 @@ package com.example.mojfizjo.Fragment.HomeFragment;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dbCalendar = Calendar.getInstance();
         currentDateCalendar = Calendar.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -58,7 +59,8 @@ public class HomeFragment extends Fragment {
         assert mainActivity != null;
         planModels = mainActivity.planModels;
         userSettings = mainActivity.userSettings;
-        Date lastUpdate = userSettings.getLastUpdate();
+        Date lastUpdate = null;
+        if(userSettings != null) lastUpdate= userSettings.getLastUpdate();
         if(lastUpdate == null) lastUpdate = Calendar.getInstance().getTime();
         dbCalendar.setTime(lastUpdate);
 
@@ -117,9 +119,7 @@ public class HomeFragment extends Fragment {
                                     }
                                 }
                             }));
-            builder.setNegativeButton(getResources().getString(R.string.anuluj), (dialog, id) -> {
-                dialog.dismiss();
-            });
+            builder.setNegativeButton(getResources().getString(R.string.anuluj), (dialog, id) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -147,9 +147,7 @@ public class HomeFragment extends Fragment {
                                     }
                                 }
                             }));
-            builder.setNegativeButton(getResources().getString(R.string.anuluj), (dialog, id) -> {
-                dialog.dismiss();
-            });
+            builder.setNegativeButton(getResources().getString(R.string.anuluj), (dialog, id) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.show();

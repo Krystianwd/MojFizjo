@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:background="@color/colorTextIcons"
         android:padding="14dp"
-        android:text="Plan tygodniowy"
+        android:text="@string/plan_tygodniowy"
         android:textAlignment="center"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="poniedziałek"
+            android:text="@string/poniedzialek"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"
@@ -60,25 +60,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="wtorek"
-            android:textSize="20sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dialog_border_style"
-            android:padding="14dp"
-            android:textSize="20sp" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/dialog_border_style"
-            android:padding="14dp"
-            android:text="środa"
+            android:text="@string/wtorek"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"
@@ -96,7 +78,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="czwartek"
+            android:text="@string/sroda"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"
@@ -114,7 +96,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="piątek"
+            android:text="@string/czwartek"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"
@@ -132,7 +114,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="sobota"
+            android:text="@string/piatek"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"
@@ -150,7 +132,25 @@
             android:layout_height="match_parent"
             android:background="@drawable/dialog_border_style"
             android:padding="14dp"
-            android:text="niedziela"
+            android:text="@string/sobota"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_border_style"
+            android:padding="14dp"
+            android:textSize="20sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/dialog_border_style"
+            android:padding="14dp"
+            android:text="@string/niedziela"
             android:textSize="20sp" />
         <TextView
             android:layout_width="match_parent"

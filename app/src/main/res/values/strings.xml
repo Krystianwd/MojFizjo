@@ -70,6 +70,7 @@
     <string name="kategoria_id">ID Kategorii</string>
     <string name="kategorie">Wybierz kategorię ćwiczeń</string>
 
+    <string name="twojeplany">Twoje plany</string>
     <string name="nowyplan">Nowy Plan</string>
     <string name="edytuj_plan">Edytuj Plan</string>
     <string name="usun_plan">Usuń Plan</string>
@@ -134,5 +135,12 @@
     <string name="piles_wode">Pamiętałeś o piciu wody</string>
     <string name="dni_pod_rzad">dni pod rząd!</string>
 
+    <string name="poniedzialek">poniedziałek</string>
+    <string name="wtorek">wtorek</string>
+    <string name="sroda">środa</string>
+    <string name="czwartek">czwartek</string>
+    <string name="piatek">piątek</string>
+    <string name="sobota">sobota</string>
+    <string name="niedziela">niedziela</string>
 
 </resources>

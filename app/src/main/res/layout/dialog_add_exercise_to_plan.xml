@@ -24,6 +24,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#333333" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <EditText
         android:id="@+id/dialog_sets"
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
         android:autofillHints=""
         android:hint="@string/liczba_powtorzen"
         android:inputType="number"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
 
     <EditText
         android:id="@+id/dialog_time"

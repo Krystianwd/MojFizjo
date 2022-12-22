@@ -6,15 +6,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HomeFragment.HomeFragment">
 
+    <TextView
+        android:id="@+id/plansFragmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/twojeplany"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_plan_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/addPlan"
+        android:layout_width="404dp"
+        android:layout_height="656dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/plansFragmentTitle" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addPlan"
@@ -22,12 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/teal_200"
         android:background="@drawable/button_style_round"
+        android:backgroundTint="@color/teal_200"
         android:drawableEnd="@drawable/ic_baseline_add_circle_24"
-        android:text="@string/nowyplan"
-        android:textColor="#757575"
         android:padding="20dp"
+        android:text="@string/nowyplan"
+        android:textColor="#37474F"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

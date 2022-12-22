@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     //wiadomosc o mailu weryfikacyjnym
     TextView verificationMessage;
+
+    ImageView appIcon;
 
     //walidacja
     Boolean isCorrectRegistrationInputProvided = false;
@@ -78,6 +81,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         //ustawienie wiadomosci
         verificationMessage = view.findViewById(R.id.verificationMessage);
+
+        appIcon = view.findViewById(R.id.appIcon);
 
         return view;
     }
@@ -124,6 +129,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                                                 if (task1.isSuccessful()) {
                                                     Log.d(TAG, "Email sent.");
                                                     verificationMessage.setVisibility(View.VISIBLE);
+                                                    passwordText.setVisibility(View.INVISIBLE);
+                                                    repeatPasswordText.setVisibility(View.INVISIBLE);
 
                                                     //stworzenie obiektu ustawien uzytkownika w bd
                                                     db.collection("user_settings")

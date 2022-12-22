@@ -64,6 +64,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         Button skipLoginButton = view.findViewById(R.id.skip_login_button);
         skipLoginButton.setOnClickListener(this);
 
+        skipLoginButton.setVisibility(View.GONE);
+
         //ustawienie pól tekstowych
         emailText = view.findViewById(R.id.input_email);
         passwordText = view.findViewById(R.id.input_password);
