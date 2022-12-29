@@ -36,5 +36,19 @@ public class ExerciseModel implements Serializable {
         return time;
     }
 
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
 
+    public void setExercise(DocumentReference exercise) {
+        this.exercise = exercise;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

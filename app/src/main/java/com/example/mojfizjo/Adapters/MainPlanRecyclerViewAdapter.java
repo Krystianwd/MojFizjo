@@ -66,19 +66,21 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
         holder.planName.setText(planModels.get(position).getPlanName());
         for(int i=0;i<planModels.get(position).getExerciseModels().size();i++) {
             TextView textView = new TextView(context);
-            textView.setText(planModels.get(position).getExerciseModels().get(i).getExerciseName());
+            String text = planModels.get(position).getExerciseModels().get(i).getExerciseName();
+            textView.setText(text);
             holder.exerciseName.addView(textView);
         }
         holder.parentLayout.setOnClickListener(view -> {
             Log.d(TAG, String.valueOf(view.getId()));
             Bundle bundle = new Bundle();
             int getPosition = holder.getBindingAdapterPosition();
+            bundle.putString("planId",planModels.get(getPosition).getPlanId());
             bundle.putInt("position",getPosition);
             bundle.putSerializable("exerlist",planModels.get(getPosition).getExerciseModels());
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new BrowsePlanExercisesFragment();
             fragment.setArguments(bundle);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).addToBackStack("Browse").commit();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment,"BrowsePlanFragment").addToBackStack("Browse").commit();
         });
         holder.parentLayout.setOnLongClickListener(view -> {
             Log.d(TAG, String.valueOf(view.getId()));
@@ -93,7 +95,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
                 switch(id){
 
                         //przycisk edycji planu
-                    case R.id.editPlan:
+                    case R.id.menu_edit:
                         Log.d(TAG, "edit");
                         Bundle bundle = new Bundle();
                         bundle.putBoolean("isEditingExistingPlan",true);
@@ -108,7 +110,7 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
                         break;
 
                         //przycisk usuwania planu
-                    case R.id.deletePlan:
+                    case R.id.menu_delete:
                         Log.d(TAG, "delete");
                         String planId = planModels.get(getPosition).getPlanId();
                         String planName = planModels.get(getPosition).getPlanName();

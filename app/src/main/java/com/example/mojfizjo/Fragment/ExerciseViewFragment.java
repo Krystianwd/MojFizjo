@@ -91,6 +91,9 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
             submitAddingToPlan.setVisibility(View.VISIBLE);
             submitAddingToPlan.setOnClickListener(view -> {
                 AddNewExerciseDialog addNewExerciseDialog = new AddNewExerciseDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString("exerciseName",receivedExerciseName);
+                addNewExerciseDialog.setArguments(bundle);
                 addNewExerciseDialog.show(getParentFragmentManager(),"addNewExerciseDialog");
             });
 
@@ -294,7 +297,7 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
     }
 
     @Override
-    public void applyText(String sets, String time) {
+    public void editExercise(String sets, String time) {
         //stworzenie instancji fragmentu planow
         Fragment fragment = getParentFragmentManager().findFragmentByTag("AddPlanFragment");
         if(fragment != null){

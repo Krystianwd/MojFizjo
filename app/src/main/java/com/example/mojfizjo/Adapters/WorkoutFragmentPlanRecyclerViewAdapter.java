@@ -52,7 +52,8 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
         holder.planName.setText(planModels.get(position).getPlanName());
         for(int i=0;i<planModels.get(position).getExerciseModels().size();i++) {
             TextView textView = new TextView(context);
-            textView.setText(planModels.get(position).getExerciseModels().get(i).getExerciseName());
+            String text = planModels.get(position).getExerciseModels().get(i).getExerciseName();
+            textView.setText(text);
             holder.exerciseName.addView(textView);
         }
         holder.parentLayout.setOnClickListener(view -> {

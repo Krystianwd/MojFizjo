@@ -28,9 +28,8 @@ public class SetDateToRemindDialog extends DialogFragment {
     String selectedHour;
     private DialogListener listener;
     public interface DialogListener{
-        void applyText(ArrayList<String> selectedDays,String selectedHour);
-        void applyTextSkip();
-
+        void setDate(ArrayList<String> selectedDays,String selectedHour);
+        void skipSetDate();
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -85,13 +84,13 @@ public class SetDateToRemindDialog extends DialogFragment {
                             selectedDays.add(days[number]);
                         }
                         selectedHour = spinnerHours.getSelectedItem().toString();
-                        listener.applyText(selectedDays,selectedHour);
+                        listener.setDate(selectedDays,selectedHour);
                     }
                 })
                 .setNeutralButton(getResources().getString(R.string.pomin), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.applyTextSkip();
+                        listener.skipSetDate();
                     }
                 })
                 .setNegativeButton(getResources().getString(R.string.anuluj), new DialogInterface.OnClickListener() {
@@ -108,7 +107,7 @@ public class SetDateToRemindDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (SetDateToRemindDialog.DialogListener) getParentFragmentManager().findFragmentByTag("AddPlanFragment");;
+            listener = (DialogListener) getParentFragmentManager().findFragmentByTag("AddPlanFragment");;
             Log.d(TAG, "onAttach: "+listener);
         }
         catch (ClassCastException  e) {

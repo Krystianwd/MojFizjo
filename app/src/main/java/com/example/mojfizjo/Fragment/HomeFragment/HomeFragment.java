@@ -157,8 +157,6 @@ public class HomeFragment extends Fragment {
     }
 
     void resetSettings() {
-        Log.d(TAG, "resetSettings: bam");
-
         db.collection("user_settings").whereEqualTo("userID", mainActivity.currentUser.getUid())
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

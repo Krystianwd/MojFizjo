@@ -16,10 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.mojfizjo.Fragment.ExerciseViewFragment;
 import com.example.mojfizjo.R;
 
-public class AddNewExerciseDialog extends DialogFragment {
+public class AddCustomExerciseDialog extends DialogFragment {
     boolean isCustomExercise;
     private EditText editTextSets;
     private EditText editTextTime;
@@ -28,7 +27,7 @@ public class AddNewExerciseDialog extends DialogFragment {
     private DialogListener listener;
 
     public interface DialogListener {
-        void editExercise(String sets, String time);
+        void addCustomExercise(String exerciseName, String sets, String time);
     }
 
     @Override
@@ -47,14 +46,15 @@ public class AddNewExerciseDialog extends DialogFragment {
                 .setPositiveButton(getResources().getString(R.string.zatwierdz), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        String exerciseName = editTextName.getText().toString();
                         String sets = editTextSets.getText().toString();
                         String time = editTextTime.getText().toString();
-                        if(sets.isEmpty()  || time.isEmpty())
+                        if(sets.isEmpty() || exerciseName.isEmpty() || time.isEmpty())
                         {
                             Toast.makeText(getContext(),"Musisz wypełnić wszystkie pola",Toast.LENGTH_SHORT);
                         }
                         else {
-                            listener.editExercise(sets, time);
+                            listener.addCustomExercise(exerciseName,sets, time);
                         }
 
                     }
@@ -71,7 +71,8 @@ public class AddNewExerciseDialog extends DialogFragment {
         try {
             isCustomExercise = getArguments().getBoolean("isCustomExercise");
             if(isCustomExercise){
-                editTextName.setEnabled(true);
+                Log.d(TAG, "onCreateDialog: BAM");
+//                editTextName.setEnabled(true);
             }
             else {
                 editTextName.setText(getArguments().getString("exerciseName"));
@@ -79,7 +80,6 @@ public class AddNewExerciseDialog extends DialogFragment {
         }catch (Exception e){
             Log.d(TAG, "onCreateDialog: "+e);
         }
-        editTextName.setEnabled(false);
         return builder.create();
     }
 
@@ -87,7 +87,7 @@ public class AddNewExerciseDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (AddNewExerciseDialog.DialogListener) getParentFragmentManager().findFragmentByTag("ExerciseViewFragment");
+            listener = (AddCustomExerciseDialog.DialogListener) getParentFragmentManager().findFragmentByTag("AddPlanFragment");
             Log.d(TAG, "onAttach: " + listener);
         } catch (ClassCastException e) {
             throw new ClassCastException("Calling Fragment must implement OnAddFriendListener");

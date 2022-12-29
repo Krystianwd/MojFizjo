@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/editPlan"
-        android:title="@string/edytuj_plan" />
+        android:id="@+id/menu_edit"
+        android:title="@string/menu_edytuj" />
     <item
-        android:id="@+id/deletePlan"
-        android:title="@string/usun_plan" />
+        android:id="@+id/menu_delete"
+        android:title="@string/menu_usun" />
 </menu>

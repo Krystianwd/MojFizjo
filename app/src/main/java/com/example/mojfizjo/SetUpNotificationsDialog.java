@@ -24,9 +24,8 @@ import com.example.mojfizjo.R;
 public class SetUpNotificationsDialog extends DialogFragment {
     private EditText editTextSets;
     private EditText editTextTime;
-
-    private com.example.mojfizjo.Fragment.PlansFragment.AddNewExerciseDialog.DialogListener listener;
-    public interface DialogListener{
+    private SetUpNotificationDialogListener listener;
+    public interface SetUpNotificationDialogListener{
         void applyText(String sets,String time);
     }
     @Override
@@ -72,7 +71,7 @@ public class SetUpNotificationsDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (com.example.mojfizjo.Fragment.PlansFragment.AddNewExerciseDialog.DialogListener) getParentFragmentManager().findFragmentByTag("ExerciseViewFragment");;
+            listener = (SetUpNotificationDialogListener) getParentFragmentManager().findFragmentByTag("ExerciseViewFragment");;
             Log.d(TAG, "onAttach: "+listener);
         }
         catch (ClassCastException  e) {

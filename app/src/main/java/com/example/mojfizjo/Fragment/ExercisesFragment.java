@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +44,7 @@ public class ExercisesFragment extends Fragment implements View.OnClickListener{
     View view;
 
     boolean receivedIsEditingExistingPlan = false;
+    Button addCustomExercise;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +61,6 @@ public class ExercisesFragment extends Fragment implements View.OnClickListener{
         ConstraintLayout exerciseFragmentLayout = view.findViewById(R.id.exerciseFragmentLayout);
         //uchwyt do Flow
         Flow exerciseFragmentFlow = view.findViewById(R.id.exerciseFragmentFlow);
-
         //pobranie kategorii z bd
         db.collection("categories")
                 .get()

@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mojfizjo.Adapters.BrowsePlanExercisesRecyclerViewAdapter;
+import com.example.mojfizjo.Adapters.AddNewPlanRecyclerViewAdapter;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
 import com.example.mojfizjo.MainActivity;
 import com.example.mojfizjo.Models.ExerciseModel;
@@ -33,17 +33,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialog.DialogListener{
+public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialog.DialogListener,AddCustomExerciseDialog.DialogListener{
     Boolean receivedIsAddingToPlan = false;
     Boolean isEditingExistingPlan = false;
     String receivedPlanId ="";
     String receivedPlanName="";
 
     EditText planName;
-
     ArrayList<ExerciseModel> exerciseModels = new ArrayList<>();
     View main_view;
-    BrowsePlanExercisesRecyclerViewAdapter adapter;
+    AddNewPlanRecyclerViewAdapter adapter;
     //autentykacja
     FirebaseAuth mAuth;
 
@@ -52,13 +51,13 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
     public AddNewPlanFragment(){
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         db = FirebaseFirestore.getInstance();
 
         main_view = inflater.inflate(R.layout.fragment_add_new_plan, container, false);
         Button submitPlanButton = main_view.findViewById(R.id.submitPlan);
+        Button addCustomExercise = main_view.findViewById(R.id.addCustomExercise);
         Button addNewExercise = main_view.findViewById(R.id.addExerciseToPlan);
         planName = main_view.findViewById(R.id.planNameToAdd);
 
@@ -82,10 +81,7 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
                 }
             }
 
-            RecyclerView recyclerView = main_view.findViewById(R.id.addNewPlanRecyclerView);
-            adapter = new BrowsePlanExercisesRecyclerViewAdapter(main_view.getContext(), exerciseModels, requireActivity());
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(main_view.getContext()));
+
 
             try {
                 receivedIsAddingToPlan = getArguments().getBoolean("isAddingToPlan");
@@ -101,7 +97,13 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
         }
 
         //Log.d(ContentValues.TAG, "onClick: Passed boolean" +receivedIsAddingToPlan);
-
+        addCustomExercise.setOnClickListener(view1 ->{
+            AddCustomExerciseDialog addCustomExerciseDialog = new AddCustomExerciseDialog();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isCustomExercise",true);
+            addCustomExerciseDialog.setArguments(bundle);
+            addCustomExerciseDialog.show(getParentFragmentManager(),"addNewExerciseDialog");
+        });
         addNewExercise.setOnClickListener(view -> {
             //stworzenie instancji fragmentu widoku kategorii
             Fragment fragment = new ExercisesFragment();
@@ -165,17 +167,20 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
                 setDateToRemindDialog.show(getParentFragmentManager(), "setDateToRemindDialog");
             }
         });
+        RecyclerView recyclerView = main_view.findViewById(R.id.addNewPlanRecyclerView);
+        adapter = new AddNewPlanRecyclerViewAdapter(main_view.getContext(),receivedPlanId, exerciseModels,requireActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(main_view.getContext()));
         return main_view;
     }
 
     @Override
-    public void applyText(ArrayList<String> selectedDays, String selectedHour) {
+    public void setDate(ArrayList<String> selectedDays, String selectedHour) {
                 Map<String,Boolean> days = new HashMap<>();
         for (String selectedDay:selectedDays) {
             days.put(selectedDay,false);
         }
                 String  planNameString = planName.getText().toString();
-
                 Map<String, Object> plan = new HashMap<>();
                 plan.put("planName",planNameString);
                 plan.put("exercises",exerciseModels);
@@ -200,8 +205,14 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
     }
 
     @Override
-    public void applyTextSkip() {
+    public void skipSetDate() {
 
+    }
+
+    @Override
+    public void addCustomExercise(String exerciseName, String sets, String time) {
+        exerciseModels.add(new ExerciseModel(exerciseName,null,Integer.parseInt(sets),time));
+        adapter.notifyDataSetChanged();
     }
 }
 

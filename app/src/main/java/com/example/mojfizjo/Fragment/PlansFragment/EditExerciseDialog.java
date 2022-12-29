@@ -1,6 +1,7 @@
 package com.example.mojfizjo.Fragment.PlansFragment;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,27 +15,33 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mojfizjo.Fragment.ExerciseViewFragment;
+import com.example.mojfizjo.MainActivity;
+import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class AddNewExerciseDialog extends DialogFragment {
+import java.util.ArrayList;
+
+public class EditExerciseDialog extends DialogFragment {
     boolean isCustomExercise;
     private EditText editTextSets;
     private EditText editTextTime;
     private EditText editTextName;
-
+    ArrayList<ExerciseModel> exerciseModels;
+    String planId;
+    int position;
     private DialogListener listener;
 
     public interface DialogListener {
-        void editExercise(String sets, String time);
+        void editExercise(String name, String sets, String time,int position,String planId);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        isCustomExercise = false;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
@@ -49,14 +56,14 @@ public class AddNewExerciseDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         String sets = editTextSets.getText().toString();
                         String time = editTextTime.getText().toString();
-                        if(sets.isEmpty()  || time.isEmpty())
+                        String name = editTextName.getText().toString();
+                        if(sets.isEmpty() || name.isEmpty() || time.isEmpty())
                         {
                             Toast.makeText(getContext(),"Musisz wypełnić wszystkie pola",Toast.LENGTH_SHORT);
                         }
                         else {
-                            listener.editExercise(sets, time);
+                            listener.editExercise(name,sets, time,position,planId);
                         }
-
                     }
                 })
                 .setNegativeButton(getResources().getString(R.string.anuluj), new DialogInterface.OnClickListener() {
@@ -64,31 +71,33 @@ public class AddNewExerciseDialog extends DialogFragment {
                         builder.create().dismiss();
                     }
                 });
-        ;
         editTextSets = (EditText) dialogLayout.findViewById(R.id.dialog_sets);
         editTextTime = (EditText) dialogLayout.findViewById(R.id.dialog_time);
         editTextName = (EditText) dialogLayout.findViewById(R.id.dialog_name);
+
+        editTextName.setText(getArguments().getString("exerciseName"));
+        editTextTime.setText(getArguments().getString("time"));
+        editTextSets.setText(getArguments().getString("sets"));
+        position = getArguments().getInt("position");
+        planId = getArguments().getString("planId");
         try {
             isCustomExercise = getArguments().getBoolean("isCustomExercise");
             if(isCustomExercise){
-                editTextName.setEnabled(true);
+                Log.d(MotionEffect.TAG, "onCreateDialog: BAM");
             }
             else {
-                editTextName.setText(getArguments().getString("exerciseName"));
+                editTextName.setEnabled(false);
             }
         }catch (Exception e){
-            Log.d(TAG, "onCreateDialog: "+e);
-        }
-        editTextName.setEnabled(false);
-        return builder.create();
+            Log.d(MotionEffect.TAG, "onCreateDialog: "+e);
+        }        return builder.create();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (AddNewExerciseDialog.DialogListener) getParentFragmentManager().findFragmentByTag("ExerciseViewFragment");
-            Log.d(TAG, "onAttach: " + listener);
+                listener = (DialogListener) getParentFragmentManager().findFragmentByTag("BrowsePlanFragment");
         } catch (ClassCastException e) {
             throw new ClassCastException("Calling Fragment must implement OnAddFriendListener");
         }

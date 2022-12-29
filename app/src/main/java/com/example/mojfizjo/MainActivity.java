@@ -23,6 +23,7 @@ import com.example.mojfizjo.Adapters.MainPlanRecyclerViewAdapter;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
 import com.example.mojfizjo.Fragment.HomeFragment.HomeFragment;
 import com.example.mojfizjo.Fragment.LoginFragment;
+import com.example.mojfizjo.Fragment.PlansFragment.EditExerciseDialog;
 import com.example.mojfizjo.Fragment.PlansFragment.PlansFragment;
 import com.example.mojfizjo.Fragment.PlansFragment.SetDateToRemindDialog;
 import com.example.mojfizjo.Fragment.WorkoutFragment;
@@ -283,8 +284,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_week_plan:
-                ShowWeeklyPlanDialog showWeeklyPlanDialog = new ShowWeeklyPlanDialog();
-                showWeeklyPlanDialog.show(getSupportFragmentManager(),"showWeeklyPlanDialog");
+//                ShowWeeklyPlanDialog showWeeklyPlanDialog = new ShowWeeklyPlanDialog();
+//                showWeeklyPlanDialog.show(getSupportFragmentManager(),"showWeeklyPlanDialog");
             case R.id.nav_notification:
                 SetUpNotificationsDialog setUpNotificationsDialog = new SetUpNotificationsDialog();
                 setUpNotificationsDialog.show(getSupportFragmentManager(), "setUpNotificationsDialog");

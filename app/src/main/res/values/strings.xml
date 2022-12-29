@@ -69,11 +69,12 @@
     <string name="kategoria">Kategoria</string>
     <string name="kategoria_id">ID Kategorii</string>
     <string name="kategorie">Wybierz kategorię ćwiczeń</string>
+    <string name="wlasneCwiczenie">Dodaj własne ćwiczenie</string>
 
     <string name="twojeplany">Twoje plany</string>
     <string name="nowyplan">Nowy Plan</string>
-    <string name="edytuj_plan">Edytuj Plan</string>
-    <string name="usun_plan">Usuń Plan</string>
+    <string name="menu_edytuj">Edytuj</string>
+    <string name="menu_usun">Usuń</string>
     <string name="wybierzplan">Wybierz plan do treningu</string>
     <string name="nazwa_planu">Wpisz nazwę planu:</string>
 
