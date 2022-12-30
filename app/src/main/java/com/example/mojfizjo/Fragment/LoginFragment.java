@@ -120,8 +120,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                             mainActivity.setUserSettings();
 
                                             //przelaczenie widoku na fragment domowy
-//                                            Fragment fragment = new HomeFragment();
-//                                            mainActivity.selectedFragment(fragment);
                                             mainActivity.boottomNavigationview.setSelectedItemId(R.id.home);
                                         }
                                         else {
@@ -208,7 +206,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
                                 //pokazanie menu dolnego i gornego
                                 mainActivity.showMenus();
-
+                                mainActivity.setUpPLanModels();
                                 //przelaczenie widoku na fragment domowy
 //                                Fragment fragment = new HomeFragment();
 //                                mainActivity.selectedFragment(fragment);

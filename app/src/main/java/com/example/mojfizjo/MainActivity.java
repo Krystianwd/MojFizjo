@@ -17,15 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mojfizjo.Adapters.MainPlanRecyclerViewAdapter;
 import com.example.mojfizjo.Fragment.ExercisesFragment;
 import com.example.mojfizjo.Fragment.HomeFragment.HomeFragment;
 import com.example.mojfizjo.Fragment.LoginFragment;
-import com.example.mojfizjo.Fragment.PlansFragment.EditExerciseDialog;
 import com.example.mojfizjo.Fragment.PlansFragment.PlansFragment;
-import com.example.mojfizjo.Fragment.PlansFragment.SetDateToRemindDialog;
 import com.example.mojfizjo.Fragment.WorkoutFragment;
 import com.example.mojfizjo.Fragment.accountFragment;
 
@@ -200,6 +199,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        //ustawienie maila uzytkownika w menu
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+            TextView userEmail = findViewById(R.id.userEmail);
+            userEmail.setText(email);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -292,16 +300,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //wylogowanie
                 mAuth.signOut();
-
-                //ukrycie menu
                 this.hideMenus();
 
                 //przelaczenie widoku na fragment logowania
                 Fragment fragment = new LoginFragment();
-                //this.selectedFragment(fragment);
-                //nie uzywamy funkcji selectedFragment aby nie tworzyc backStacka
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, fragment);
                 fragmentTransaction.commit();

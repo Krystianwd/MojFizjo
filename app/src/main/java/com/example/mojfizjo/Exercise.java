@@ -25,7 +25,6 @@ public class Exercise {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -33,7 +32,6 @@ public class Exercise {
     public String getCategory() {
         return category;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
@@ -41,7 +39,6 @@ public class Exercise {
     public String getContent() {
         return content;
     }
-
     public void setContent(String content) {
         this.content = content;
     }
@@ -49,7 +46,6 @@ public class Exercise {
     public int getDuration() {
         return duration;
     }
-
     public void setDuration(int duration) {
         this.duration = duration;
     }
@@ -57,7 +53,6 @@ public class Exercise {
     public boolean isViewedInCategory() {
         return viewedInCategory;
     }
-
     public void setViewedInCategory(boolean viewedInCategory) {
         this.viewedInCategory = viewedInCategory;
     }
@@ -65,7 +60,6 @@ public class Exercise {
     public String getID() {
         return uID;
     }
-
     public void setID(String uID) {
         this.uID = uID;
     }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/teal_700"
+    android:contentDescription="@string/app_icon"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
@@ -11,19 +13,24 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_icon"
         android:src="@drawable/ic_baseline_healing_24" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:text="Krystian Dębiec"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:text="@string/menu_uzytkownika"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
+        android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="krystianwdlul@gmail.com"
-        />
+        android:text="@string/email"
+        android:textColor="#FFFFFF"
+        tools:ignore="TextContrastCheck" />
 
 </LinearLayout>

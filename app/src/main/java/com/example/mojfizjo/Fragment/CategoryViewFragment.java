@@ -286,18 +286,14 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-
                             boolean starFound = false;
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
                                 //pobranie danych gwiazdek
                                 Star star = document.toObject(Star.class);
                                 star.setID(document.getId());
                                 String star_ID = star.getID();
                                 String star_exercise = star.getExercise();
                                 String star_userID = star.getUserID();
-
                                 //sprawdzenie, czy dany uzytkownik juz dodal gwiazdke do tego cwiczenia
                                 if(Objects.equals(star_exercise, exerciseID) && Objects.equals(star_userID, finalCurrentUserID)){
                                     starFound = true;
@@ -315,15 +311,12 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                             });
                                 }
                             }
-
                             //jezeli nie znaleziono gwiazdki, trzeba ja dodac
                             if(!starFound){
-
                                 //ustawienie nowej gwiazdki
                                 Map<String, Object> star = new HashMap<>();
                                 star.put("exercise", exerciseID);
                                 star.put("userID", finalCurrentUserID);
-
                                 //dodanie do bd
                                 db.collection("stars")
                                         .add(star)
@@ -333,7 +326,6 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                             reloadFragment();
                                         });
                             }
-
                         }
                         else {
                             Log.e(TAG, "Error getting documents: ", task.getException());

@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="20dp"
+            android:text="@string/plan_do_wykonania"
             android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="20dp"
+                android:text="@string/do_wypicia"
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -97,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="20dp"
+                android:text="@string/do_zrobienia"
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.AppCompatButton

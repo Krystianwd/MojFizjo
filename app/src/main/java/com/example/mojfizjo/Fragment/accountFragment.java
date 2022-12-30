@@ -189,7 +189,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
                                                 .addOnCompleteListener(task12 -> {
                                                     if (task12.isSuccessful()) {
                                                         Log.d(TAG, "User account deleted.");
-
                                                         //usuniecie ustawien uzytkownika z bd
                                                         db.collection("user_settings")
                                                                 .get()
@@ -223,7 +222,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
                                                                         Log.e(TAG, "Error getting documents: ", task2.getException());
                                                                     }
                                                                 });
-
                                                         //go back to login screen
                                                         accountFragment.this.logOut();
                                                     }
@@ -273,7 +271,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
     }
 
     private Boolean validateLoginInfo(){
-
         //walidacja e-maila
         if (emailText.length()==0){
             emailText.setError(getResources().getString(R.string.walidacja_brak_maila));
@@ -282,7 +279,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
             //pobranie kontekstu aktywnosci glownej - potrzebne do ponizszych funkcji
             MainActivity mainActivity = (MainActivity)getContext();
             assert mainActivity != null;
-
             Pattern p = Pattern.compile(mainActivity.emailRegex); //regex e-mail uzywany w Firebase
             Matcher m = p.matcher(emailText.getText().toString());
             if(!m.matches()){
@@ -301,7 +297,6 @@ public class accountFragment extends Fragment  implements View.OnClickListener{
 
             }
         }
-
         //walidacja hasla
         return validatePasswordField(passwordText);
     }

@@ -51,6 +51,7 @@
     <string name="personalizacja">Personalization</string>
     <string name="plan_tygodniowy">Weekly Plan</string>
     <string name="twoje_konto">Your Account</string>
+    <string name="menu_uzytkownika">User Menu</string>
     <string name="wyloguj">Log Out</string>
     <string name="zmien_haslo">Change Password</string>
     <string name="usun_konto">Delete Account</string>
@@ -70,11 +71,12 @@
     <string name="kategoria">Category</string>
     <string name="kategoria_id">Category ID</string>
     <string name="kategorie">Select exercise category</string>
+    <string name="wlasneCwiczenie">Dodaj własne ćwiczenie</string>
 
     <string name="twojeplany">Your Plans</string>
     <string name="nowyplan">New Plan</string>
-    <string name="edytuj_plan">Edit Plan</string>
-    <string name="usun_plan">Delete Plan</string>
+    <string name="menu_edytuj">Edit</string>
+    <string name="menu_usun">Delete</string>
     <string name="wybierzplan">Select exercise plan</string>
     <string name="nazwa_planu">Plan name:</string>
     <string name="dodano_plan">Added plan</string>
