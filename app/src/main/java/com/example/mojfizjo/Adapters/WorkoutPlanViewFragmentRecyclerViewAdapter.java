@@ -75,6 +75,12 @@ public class WorkoutPlanViewFragmentRecyclerViewAdapter extends RecyclerView.Ada
             bundle.putStringArrayList("exercisesFinished",exercisesFinished);
             bundle.putString("planName", planName);
             bundle.putSerializable("exerlist",exerciseModels);
+            if(exerciseModel.getExercise() == null){
+                bundle.putBoolean("exerciseRef",true);
+            }
+            else {
+                bundle.putBoolean("exerciseRef",false);
+            }
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
             Fragment fragment = new WorkoutExerciseViewFragment();
             fragment.setArguments(bundle);

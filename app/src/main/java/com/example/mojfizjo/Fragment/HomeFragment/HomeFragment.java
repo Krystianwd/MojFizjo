@@ -34,6 +34,9 @@ public class HomeFragment extends Fragment {
     public FirebaseFirestore db;
     UserSettings userSettings;
     public View view;
+    boolean hasPlansToday;
+    String dayOfTheWeek;
+
     MainActivity mainActivity;
     TextView textViewPlans;
     Button buttonPlans;
@@ -63,7 +66,7 @@ public class HomeFragment extends Fragment {
         if(userSettings != null) lastUpdate= userSettings.getLastUpdate();
         if(lastUpdate == null) lastUpdate = Calendar.getInstance().getTime();
         dbCalendar.setTime(lastUpdate);
-
+        dayOfTheWeek = new SimpleDateFormat("EEEE").format(new Date());
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -80,7 +83,23 @@ public class HomeFragment extends Fragment {
         textViewWaterDaysAmount = view.findViewById(R.id.home_textView_water_days_amount);
         textViewStepsAmount = view.findViewById(R.id.home_textView_steps_amount);
 
+
         if (dbCalendar.get(Calendar.DAY_OF_MONTH) != currentDateCalendar.get(Calendar.DAY_OF_MONTH)) {
+            Log.d(TAG, "onCreateView: "+userSettings.isWorkoutDone()+" "+hasPlansToday);
+            if(userSettings.isWorkoutDone() == false && hasPlansToday == false){
+                db.collection("user_settings").whereEqualTo("userID", mainActivity.currentUser.getUid())
+                        .get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    db.collection("user_settings").document(document.getId())
+                                            .update("workoutDaysAmount",0)
+                                            .addOnSuccessListener(unused -> {
+                                                userSettings.setWorkoutDaysAmount(0);
+                                            });
+                                }
+                                }
+                        });
+            }
             resetSettings();
         } else {
             try {
@@ -185,20 +204,35 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
-    }
+        for (int i = 0; i < planModels.size(); i++) {
+            Map<String, Boolean> remindDay = planModels.get(i).getRemindDay();
+            if (remindDay.containsKey(dayOfTheWeek) && Boolean.TRUE.equals(remindDay.get(dayOfTheWeek))) {
+                remindDay.put(dayOfTheWeek, false);
+                db.collection("plans").whereEqualTo("planId",planModels.get(i).getPlanId())
+                        .get().addOnCompleteListener(task ->{
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    db.collection("plans").document(document.getId())
+                                            .update("remindDay",remindDay);
+                                }
+                           }
+                        });
+            }
+        }
+        }
 
     void setTextViewPlans() {
-        boolean hasPlansToday = false;
+        hasPlansToday = false;
         userSettings.setWorkoutDone(true);
         StringBuilder days = new StringBuilder();
-        String dayOfTheWeek = new SimpleDateFormat("EEEE").format(new Date());
         for (int i = 0; i < planModels.size(); i++) {
             Map<String, Boolean> remindDay = planModels.get(i).getRemindDay();
             if (remindDay.containsKey(dayOfTheWeek) && Boolean.FALSE.equals(remindDay.get(dayOfTheWeek))) {
                 days.append(planModels.get(i).getPlanName());
                 days.append(", ");
                 hasPlansToday = true;
-                setWorkoutDone(false);
+                userSettings.setWorkoutDone(false);
+                Log.d(TAG, "setTextViewPlans: Workout");
             }
         }
         if (hasPlansToday) {

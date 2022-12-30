@@ -31,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRecyclerViewAdapter.MyMainPlanViewHolder> {
 
@@ -70,7 +71,16 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
             textView.setText(text);
             holder.exerciseName.addView(textView);
         }
-        holder.parentLayout.setOnClickListener(view -> {
+        Map<String, Boolean> remindDay = planModels.get(position).getRemindDay();
+        StringBuilder remindDayString = new StringBuilder();
+        for (Map.Entry<String, Boolean> entry : remindDay.entrySet()) {
+            remindDayString.append(entry.getKey());
+            remindDayString.append(", ");
+        }
+        int length = remindDayString.length();
+        remindDayString = remindDayString.replace(length - 2, length - 1, "");
+            holder.dayOfTheWeek.setText(remindDayString);
+            holder.parentLayout.setOnClickListener(view -> {
             Log.d(TAG, String.valueOf(view.getId()));
             Bundle bundle = new Bundle();
             int getPosition = holder.getBindingAdapterPosition();
@@ -149,12 +159,12 @@ public class MainPlanRecyclerViewAdapter extends RecyclerView.Adapter<MainPlanRe
     }
     public static class MyMainPlanViewHolder extends RecyclerView.ViewHolder{
 
-        TextView planName;
+        TextView planName,dayOfTheWeek;
         LinearLayout exerciseName;
         CardView parentLayout;
         public MyMainPlanViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            dayOfTheWeek = itemView.findViewById(R.id.main_plan_day_of_the_week);
             planName = itemView.findViewById(R.id.mainPlanName);
             exerciseName = itemView.findViewById(R.id.LinearLayoutPlansMain);
             parentLayout = itemView.findViewById(R.id.parent_view);

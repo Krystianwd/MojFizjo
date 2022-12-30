@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="@string/powiadomienia"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/wyszukaj"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/notification"-->
+<!--        android:icon="@drawable/ic_baseline_notifications_24"-->
+<!--        android:title="@string/powiadomienia"-->
+<!--        app:showAsAction="ifRoom" />-->
+<!--    <item-->
+<!--        android:id="@+id/search"-->
+<!--        android:icon="@drawable/ic_baseline_search_24"-->
+<!--        android:title="@string/wyszukaj"-->
+<!--        app:showAsAction="ifRoom" />-->
     <item
         android:id="@+id/account"
         android:icon="@drawable/ic_baseline_account_circle_24"

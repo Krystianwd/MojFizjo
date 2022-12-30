@@ -215,15 +215,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.notification:
-                Toast.makeText(this, getResources().getString(R.string.powiadomienia), Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.search:
-                Toast.makeText(this, "Wyszukaj", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.notification:
+//                Toast.makeText(this, getResources().getString(R.string.powiadomienia), Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.search:
+//                Toast.makeText(this, "Wyszukaj", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.account:
                 drawerLayout.openDrawer(GravityCompat.START);
-                return true;
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -291,13 +291,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_week_plan:
-//                ShowWeeklyPlanDialog showWeeklyPlanDialog = new ShowWeeklyPlanDialog();
-//                showWeeklyPlanDialog.show(getSupportFragmentManager(),"showWeeklyPlanDialog");
-            case R.id.nav_notification:
-                SetUpNotificationsDialog setUpNotificationsDialog = new SetUpNotificationsDialog();
-                setUpNotificationsDialog.show(getSupportFragmentManager(), "setUpNotificationsDialog");
-                break;
+//            case R.id.nav_week_plan:
+////                ShowWeeklyPlanDialog showWeeklyPlanDialog = new ShowWeeklyPlanDialog();
+////                showWeeklyPlanDialog.show(getSupportFragmentManager(),"showWeeklyPlanDialog");
+//            case R.id.nav_notification:
+//                SetUpNotificationsDialog setUpNotificationsDialog = new SetUpNotificationsDialog();
+//                setUpNotificationsDialog.show(getSupportFragmentManager(), "setUpNotificationsDialog");
+//                break;
             case R.id.nav_logout:
                 drawerLayout.closeDrawer(GravityCompat.START);
                 mAuth.signOut();

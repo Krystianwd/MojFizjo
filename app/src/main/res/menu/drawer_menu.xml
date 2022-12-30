@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <item android:title="@string/personalizacja">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_week_plan"
-                    android:icon="@drawable/ic_baseline_healing_24"
-                    android:title="@string/plan_tygodniowy" />
-                <item
-                    android:id="@+id/nav_notification"
-                    android:icon="@drawable/ic_baseline_healing_24"
-                    android:title="@string/powiadomienia" />
-            </group>
-        </menu>
-    </item>
+<!--    <item android:title="@string/personalizacja">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_week_plan"-->
+<!--                    android:icon="@drawable/ic_baseline_healing_24"-->
+<!--                    android:title="@string/plan_tygodniowy" />-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_notification"-->
+<!--                    android:icon="@drawable/ic_baseline_healing_24"-->
+<!--                    android:title="@string/powiadomienia" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
     <item android:title="@string/twoje_konto">
         <menu>
             <item

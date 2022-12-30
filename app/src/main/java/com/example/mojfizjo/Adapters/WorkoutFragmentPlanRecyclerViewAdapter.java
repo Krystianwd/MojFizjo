@@ -24,6 +24,7 @@ import com.example.mojfizjo.Models.PlanModel;
 import com.example.mojfizjo.R;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutFragmentPlanRecyclerViewAdapter.MyMainPlanViewHolder> {
 
@@ -56,6 +57,15 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
             textView.setText(text);
             holder.exerciseName.addView(textView);
         }
+        Map<String, Boolean> remindDay = planModels.get(position).getRemindDay();
+        StringBuilder remindDayString = new StringBuilder();
+        for (Map.Entry<String, Boolean> entry : remindDay.entrySet()) {
+            remindDayString.append(entry.getKey());
+            remindDayString.append(", ");
+        }
+        int length = remindDayString.length();
+        remindDayString = remindDayString.replace(length - 2, length - 1, "");
+        holder.dayOfTheWeek.setText(remindDayString);
         holder.parentLayout.setOnClickListener(view -> {
 
             int getPosition = holder.getAdapterPosition();
@@ -63,6 +73,8 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
             Log.d(TAG, String.valueOf(view.getId()));
             if(planModel.hasExercises()){
                 Bundle bundle = new Bundle();
+                bundle.putString("planId", planModel.getPlanId());
+                Log.d(TAG, "onBindViewHolder: "+planModel.getPlanId());
                 bundle.putString("planName", planModel.getPlanName());
                 bundle.putInt("position",getPosition);
                 bundle.putSerializable("exerlist",planModel.getExerciseModels());
@@ -85,12 +97,12 @@ public class WorkoutFragmentPlanRecyclerViewAdapter extends RecyclerView.Adapter
     }
     public static class MyMainPlanViewHolder extends RecyclerView.ViewHolder{
 
-        TextView planName;
+        TextView planName,dayOfTheWeek;
         LinearLayout exerciseName;
         CardView parentLayout;
         public MyMainPlanViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            dayOfTheWeek = itemView.findViewById(R.id.main_plan_day_of_the_week);
             planName = itemView.findViewById(R.id.mainPlanName);
             exerciseName = itemView.findViewById(R.id.LinearLayoutPlansMain);
             parentLayout = itemView.findViewById(R.id.parent_view);

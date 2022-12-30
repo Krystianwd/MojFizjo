@@ -22,6 +22,8 @@ import com.example.mojfizjo.Models.ExerciseModel;
 import com.example.mojfizjo.Models.PlanModel;
 import com.example.mojfizjo.R;
 import com.example.mojfizjo.UserSettings;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,6 +73,26 @@ public class WorkoutPlanViewFragment extends Fragment {
                         remindDay.put(dayOfTheWeek, true);
                         planModel.setRemindDay(remindDay);
                         planModels.set(i,planModel);
+                        try {
+                            String planId = getArguments().getString("planId");
+                            Log.d(TAG, "onCreateView: "+planModels.get(i).getPlanId());
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("plans").whereEqualTo("planId", planModels.get(i).getPlanId())
+                                    .get().addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                db.collection("plans").document(document.getId())
+                                                        .update("remindDay",remindDay)
+                                                        .addOnSuccessListener(unused -> {
+                                                                Log.d(TAG, "onCreateView: "+remindDay);
+                                                        });
+                                            }
+                                        }
+                                    });
+
+                        }catch (Exception e){
+                            Log.d(TAG, "onCreateView: "+e);
+                        }
                     }
                 }
             }

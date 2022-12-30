@@ -39,7 +39,7 @@ public class WorkoutExerciseViewFragment extends Fragment {
     boolean isCountdownRunning;
     boolean isCountdownRunningBackup;
     int currentSet;
-
+    TextView isCustomExercise;
     TextView exerciseNameText;
     TextView setCounterText;
     TextView countdownText;
@@ -96,7 +96,12 @@ public class WorkoutExerciseViewFragment extends Fragment {
         resetButton = view.findViewById(R.id.resetButton);
         previewExerciseButton = view.findViewById(R.id.previewExerciseButton);
         confirmExerciseFinishedButton = view.findViewById(R.id.confirmExerciseFinishedButton);
-
+        isCustomExercise = view.findViewById(R.id.workout_isCustomExercise);
+        Log.d(TAG, "onCreateView: "+getArguments().getBoolean("exerciseRef"));
+        if(getArguments().getBoolean("exerciseRef")){
+            previewExerciseButton.setEnabled(false);
+            isCustomExercise.setText("(Własne ćwiczenie)");
+        }
         //dodanie sluchaczy przyciskow
         pauseButton.setOnClickListener(view -> {
             isCountdownRunning = !isCountdownRunning;

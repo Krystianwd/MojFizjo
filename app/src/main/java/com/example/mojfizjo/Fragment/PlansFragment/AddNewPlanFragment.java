@@ -122,50 +122,9 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
             fragmentTransaction.commit();
         });
         submitPlanButton.setOnClickListener(view -> {
-
-            //tryb edycji istniejacego planu
-            if(isEditingExistingPlan){
-                DocumentReference editedPlan = db.collection("plans").document(receivedPlanId);
-                //pobranie planu z bd
-                editedPlan.get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-
-                            //model planu
-                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            PlanModelDB receivedPlanModel = document.toObject(PlanModelDB.class);
-                            assert receivedPlanModel != null;
-                            receivedPlanModel.setPlanId(document.getId());
-
-                            //aktualizacja danych
-                            String  planNameString = planName.getText().toString();
-                            receivedPlanModel.setPlanName(planNameString);
-                            receivedPlanModel.setExercises(exerciseModels);
-
-                            //aktualizacja w bazie danych
-                            editedPlan.set(receivedPlanModel)
-                                    .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie mozna zaktualizowac planu"))
-                                    .addOnSuccessListener(unused -> {
-                                        Toast.makeText(requireActivity(),getResources().getString(R.string.zaktualizowano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
-                                        exerciseModels.clear();
-                                        ((MainActivity) requireActivity()).setUpPLanModels();
-                                    });
-
-                        } else {
-                            Log.e(TAG, "No such document");
-                        }
-                    } else {
-                        Log.e(TAG, "get failed with ", task.getException());
-                    }
-                });
-            }
-
             //tryb dodawania nowego planu
-            else {
                 SetDateToRemindDialog setDateToRemindDialog = new SetDateToRemindDialog();
                 setDateToRemindDialog.show(getParentFragmentManager(), "setDateToRemindDialog");
-            }
         });
         RecyclerView recyclerView = main_view.findViewById(R.id.addNewPlanRecyclerView);
         adapter = new AddNewPlanRecyclerViewAdapter(main_view.getContext(),receivedPlanId, exerciseModels,requireActivity());
@@ -176,32 +135,73 @@ public class AddNewPlanFragment extends Fragment implements SetDateToRemindDialo
 
     @Override
     public void setDate(ArrayList<String> selectedDays, String selectedHour) {
-                Map<String,Boolean> days = new HashMap<>();
+        Map<String,Boolean> days = new HashMap<>();
         for (String selectedDay:selectedDays) {
             days.put(selectedDay,false);
         }
-                String  planNameString = planName.getText().toString();
-                Map<String, Object> plan = new HashMap<>();
-                plan.put("planName",planNameString);
-                plan.put("exercises",exerciseModels);
-                plan.put("remindDay",days);
-                plan.put("remindHour",selectedHour);
-                //ustawienie nazwy uzytkownika
-                String uid = "";
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null) uid = currentUser.getUid();
-                plan.put("userID", uid);
+        if(isEditingExistingPlan){
+            //tryb edycji istniejacego planu
+            DocumentReference editedPlan = db.collection("plans").document(receivedPlanId);
+            //pobranie planu z bd
+            editedPlan.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //model planu
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        PlanModelDB receivedPlanModel = document.toObject(PlanModelDB.class);
+                        assert receivedPlanModel != null;
+                        receivedPlanModel.setPlanId(document.getId());
 
-                db.collection("plans")
-                        .add(plan)
-                        .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie dodano nowy plan"))
-                        .addOnSuccessListener(documentReference -> {
-                            Toast.makeText(requireActivity(),getResources().getString(R.string.dodano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
-                            exerciseModels.clear();
-                            adapter.notifyDataSetChanged();
-                        });
+                        //aktualizacja danych
+                        String  planNameString = planName.getText().toString();
+                        receivedPlanModel.setPlanName(planNameString);
+                        receivedPlanModel.setExercises(exerciseModels);
+                        receivedPlanModel.setRemindDay(days);
+                        receivedPlanModel.setRemindHour(selectedHour);
+                        //aktualizacja w bazie danych
+                        editedPlan.set(receivedPlanModel)
+                                .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie mozna zaktualizowac planu"))
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(requireActivity(),getResources().getString(R.string.zaktualizowano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
+                                    exerciseModels.clear();
+                                    ((MainActivity) requireActivity()).setUpPLanModels();
+                                });
+
+                    } else {
+                        Log.e(TAG, "No such document");
+                    }
+                } else {
+                    Log.e(TAG, "get failed with ", task.getException());
+                }
+            });
+        }
+        else{
+
+            String  planNameString = planName.getText().toString();
+            Map<String, Object> plan = new HashMap<>();
+            plan.put("planName",planNameString);
+            plan.put("exercises",exerciseModels);
+            plan.put("remindDay",days);
+            plan.put("remindHour",selectedHour);
+            //ustawienie nazwy uzytkownika
+            String uid = "";
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.setLanguageCode(getResources().getString(R.string.jezyk));
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) uid = currentUser.getUid();
+            plan.put("userID", uid);
+
+            db.collection("plans")
+                    .add(plan)
+                    .addOnFailureListener(e -> Log.e(TAG, "onFailure: Nie dodano nowy plan"))
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(requireActivity(),getResources().getString(R.string.dodano_plan) + " " + planNameString, Toast.LENGTH_SHORT).show();
+                        exerciseModels.clear();
+                        adapter.notifyDataSetChanged();
+                    });
+        }
+
     }
 
     @Override
