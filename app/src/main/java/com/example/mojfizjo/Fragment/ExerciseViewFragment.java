@@ -182,7 +182,10 @@ public class ExerciseViewFragment extends Fragment implements AddNewExerciseDial
                             int newExerciseDescriptionID = View.generateViewId();
                             generated_exercise_description.setId(newExerciseDescriptionID);
                             generated_exercise_description.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-                            generated_exercise_description.setText(content);
+                            String contentTemp = content.replaceAll("Wykonanie ćwiczenia:","\nWykonanie ćwiczenia:\n");
+                            String contentTemp2 = contentTemp.replaceAll("Przykładowe ćwiczenia:","\nPrzykładowe ćwiczenia:\n");
+                            String contentToDisplay = contentTemp2.replaceAll("\\.","\\.\n");
+                            generated_exercise_description.setText(contentToDisplay);
                             generated_exercise_description.setTextColor(Color.parseColor("#000000"));
                             generated_exercise_description.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                             exerciseViewLayout.addView(generated_exercise_description);

@@ -3,7 +3,9 @@ package com.example.mojfizjo.Fragment;
 import static android.content.ContentValues.TAG;
 
 import android.graphics.Color;
+import android.graphics.text.LineBreaker;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -11,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -59,6 +63,7 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
 
     boolean receivedIsEditingExistingPlan = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -137,9 +142,19 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 int newExerciseNameID = View.generateViewId();
                                 new_generated_exercise_name.setId(newExerciseNameID);
                                 new_generated_exercise_name.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-                                new_generated_exercise_name.setText(name);
+                                new_generated_exercise_name.setMaxWidth(500);
+                                new_generated_exercise_name.setMinHeight(300);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    new_generated_exercise_name.setBreakStrategy(LineBreaker.BREAK_STRATEGY_SIMPLE);
+                                }
+                                String nameToDisplay = name;
+                                if(name.length()>45){
+                                    String temp = name.substring(0,42);
+                                    nameToDisplay = temp + "...";
+                                }
+                                new_generated_exercise_name.setText(nameToDisplay);
                                 new_generated_exercise_name.setTextColor(Color.parseColor("#A1887F"));
-                                new_generated_exercise_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
+                                new_generated_exercise_name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                                 new_generated_exercise_layout_internal.addView(new_generated_exercise_name);
 
                                 //dodanie pustego miejsca
@@ -151,13 +166,13 @@ public class CategoryViewFragment extends Fragment implements View.OnClickListen
                                 ImageButton new_generated_exercise_star = new ImageButton(view.getContext());
                                 int newExerciseStarID = View.generateViewId();
                                 new_generated_exercise_star.setId(newExerciseStarID);
-                                int starButtonSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
+                                int starButtonSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
                                 new_generated_exercise_star.setLayoutParams(new LinearLayout.LayoutParams(starButtonSize, starButtonSize, 1.0f));
                                 new_generated_exercise_star.setBackgroundColor(Color.parseColor("#EEEEEE"));
                                 new_generated_exercise_star.setContentDescription(getResources().getString(R.string.gwiazdki));
                                 new_generated_exercise_star.setTag(ID);
                                 new_generated_exercise_star.setImageResource(R.drawable.ic_baseline_stars_24);
-                                new_generated_exercise_star.setScaleType(ImageButton.ScaleType.CENTER_CROP);
+                                new_generated_exercise_star.setScaleType(ImageButton.ScaleType.FIT_CENTER);
                                 new_generated_exercise_star.setOnClickListener(this);
                                 new_generated_exercise_layout_internal.addView(new_generated_exercise_star);
 
